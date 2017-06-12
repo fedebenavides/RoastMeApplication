@@ -19,12 +19,12 @@ namespace RoastMeApplication.Models
         /*
          * *foreign keys
          * */
-        public int UserId { get; set; }
+        public int ParticipantId { get; set; }
 
         /*
          * *navigation props
          * */
-        public User User { get; set; }
+        public Participant Participant { get; set; }
 
         public ICollection<Vote> Votes { get; set; }
         public ICollection<Comment> Comments { get; set; }

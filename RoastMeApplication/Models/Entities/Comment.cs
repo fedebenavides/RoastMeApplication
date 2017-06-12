@@ -18,14 +18,14 @@ namespace RoastMeApplication.Models
         /*
          * *foreign keys
          * */
-        public int UserId { get; set; }
+        public int ParticipantId { get; set; }
         public int PictureId { get; set; }
         public int CommentId { get; set; } //if comment is a reply of another comment
 
         /*
          * *navigation props
          * */
-        public User User { get; set; }
+        public Participant Participant { get; set; }
         public Picture Picture { get; set; }
         public Comment CommentReplied { get; set; } //if comment is a reply of another comment
 

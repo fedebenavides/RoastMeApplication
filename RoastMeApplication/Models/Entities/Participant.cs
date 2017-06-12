@@ -5,7 +5,7 @@ using System.Web;
 
 namespace RoastMeApplication.Models
 {
-    public class User
+    public class Participant
     {
         /*
          * *Atributes
@@ -43,7 +43,7 @@ namespace RoastMeApplication.Models
             //to be further defined
         }
 
-        public bool DeleteAccount(int userId)
+        public bool DeleteAccount(int participantId)
         {
             //if delete successful, return true
             return true;

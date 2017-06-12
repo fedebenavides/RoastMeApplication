@@ -201,13 +201,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706121545061_InitialCreate.cs" />
+    <Compile Include="Migrations\201706121545061_InitialCreate.Designer.cs">
+      <DependentUpon>201706121545061_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\Entities\Comment.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Picture.cs" />
-    <Compile Include="Models\User.cs" />
-    <Compile Include="Models\Vote.cs" />
+    <Compile Include="Models\Entities\Picture.cs" />
+    <Compile Include="Models\Entities\Participant.cs" />
+    <Compile Include="Models\Entities\Vote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -272,6 +277,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\DAL\" />
+    <Folder Include="Models\Validation\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -280,6 +287,11 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201706121545061_InitialCreate.resx">
+      <DependentUpon>201706121545061_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,4 +1,4 @@
-﻿using System.Data.Entity;
+﻿    using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -21,7 +21,7 @@ namespace RoastMeApplication.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("EFCodeFirstDbContext", throwIfV1Schema: false)
         {
         }
 
@@ -29,5 +29,10 @@ namespace RoastMeApplication.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Participant> Participants { get; set; }
+        public DbSet<Picture> Pictures { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Vote> Votes { get; set; }
     }
 }
