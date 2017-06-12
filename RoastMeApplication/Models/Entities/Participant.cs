@@ -17,17 +17,17 @@ namespace RoastMeApplication.Models
 
         /*
          * *foreign keys
-         * */
-        public string ApplicationUserId { get; set; }
+         * 
+        public string ApplicationUserId { get; set; }*/
 
         /*
          * *navigation props
          * */
-        public ApplicationUser ApplicationUser;
+        public ApplicationUser applicationUser;
 
-        public ICollection<Vote> Votes { get; set; }
-        public ICollection<Picture> Pictures { get; set; }
-        public ICollection<Comment> Comments { get; set; }
+        public ICollection<Vote> votes { get; set; }
+        public ICollection<Picture> pictures { get; set; }
+        //public ICollection<Comment> comments { get; set; }
         
         /*
          * *methods
