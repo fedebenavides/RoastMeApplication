@@ -3,53 +3,29 @@ namespace RoastMeApplication.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class initialCreate : DbMigration
     {
         public override void Up()
         {
             CreateTable(
                 "dbo.Comments",
                 c => new
-                {
-                    id = c.Int(nullable: false, identity: true),
-                    message = c.String(),
-                    voteScore = c.Int(nullable: false),
-                    isFlagged = c.Boolean(nullable: false),
-                    ParticipantId = c.Int(nullable: false),
-                    PictureId = c.Int(nullable: false),
-                    CommentId = c.Int(nullable: false),
-                })
-                .PrimaryKey(t => t.id)
-                //.ForeignKey("dbo.Comments", t => t.CommentId)
-                .ForeignKey("dbo.Participants", t => t.ParticipantId, cascadeDelete: true)
-                .ForeignKey("dbo.Pictures", t => t.PictureId, cascadeDelete: true)
-                .Index(t => t.ParticipantId)
-                .Index(t => t.PictureId);
-                //.Index(t => t.CommentId);
-            
-            CreateTable(
-                "dbo.Votes",
-                c => new
                     {
                         id = c.Int(nullable: false, identity: true),
-                        isLike = c.Boolean(nullable: false),
+                        message = c.String(),
+                        voteScore = c.Int(nullable: false),
+                        isFlagged = c.Boolean(nullable: false),
                         ParticipantId = c.Int(nullable: false),
-                        CommentId = c.Int(nullable: false),
-                        Picture_id = c.Int(),
+                        PictureId = c.Int(nullable: false),
                         Comment_id = c.Int(),
-                        Comment_id1 = c.Int(),
                     })
                 .PrimaryKey(t => t.id)
-                .ForeignKey("dbo.Comments", t => t.CommentId, cascadeDelete: true)
-                .ForeignKey("dbo.Pictures", t => t.Picture_id)
-                //.ForeignKey("dbo.Participants", t => t.ParticipantId, cascadeDelete: true)
+                .ForeignKey("dbo.Participants", t => t.ParticipantId, cascadeDelete: true)
+                .ForeignKey("dbo.Pictures", t => t.PictureId, cascadeDelete: false)
                 .ForeignKey("dbo.Comments", t => t.Comment_id)
-                //.ForeignKey("dbo.Comments", t => t.Comment_id1)
                 .Index(t => t.ParticipantId)
-                .Index(t => t.CommentId)
-                .Index(t => t.Picture_id)
-                .Index(t => t.Comment_id)
-                .Index(t => t.Comment_id1);
+                .Index(t => t.PictureId)
+                .Index(t => t.Comment_id);
             
             CreateTable(
                 "dbo.Participants",
@@ -75,8 +51,26 @@ namespace RoastMeApplication.Migrations
                         ParticipantId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.id)
-                //.ForeignKey("dbo.Participants", t => t.ParticipantId, cascadeDelete: true)
+                .ForeignKey("dbo.Participants", t => t.ParticipantId, cascadeDelete: true)
                 .Index(t => t.ParticipantId);
+            
+            CreateTable(
+                "dbo.Votes",
+                c => new
+                    {
+                        id = c.Int(nullable: false, identity: true),
+                        isLike = c.Boolean(nullable: false),
+                        ParticipantId = c.Int(nullable: false),
+                        CommentId = c.Int(nullable: false),
+                        Picture_id = c.Int(),
+                    })
+                .PrimaryKey(t => t.id)
+                .ForeignKey("dbo.Comments", t => t.CommentId, cascadeDelete: false)
+                .ForeignKey("dbo.Participants", t => t.ParticipantId, cascadeDelete: true)
+                .ForeignKey("dbo.Pictures", t => t.Picture_id)
+                .Index(t => t.ParticipantId)
+                .Index(t => t.CommentId)
+                .Index(t => t.Picture_id);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -154,28 +148,24 @@ namespace RoastMeApplication.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Votes", "Comment_id1", "dbo.Comments");
-            DropForeignKey("dbo.Votes", "Comment_id", "dbo.Comments");
-            DropForeignKey("dbo.Votes", "ParticipantId", "dbo.Participants");
+            DropForeignKey("dbo.Comments", "Comment_id", "dbo.Comments");
             DropForeignKey("dbo.Votes", "Picture_id", "dbo.Pictures");
+            DropForeignKey("dbo.Votes", "ParticipantId", "dbo.Participants");
+            DropForeignKey("dbo.Votes", "CommentId", "dbo.Comments");
             DropForeignKey("dbo.Pictures", "ParticipantId", "dbo.Participants");
             DropForeignKey("dbo.Comments", "PictureId", "dbo.Pictures");
             DropForeignKey("dbo.Comments", "ParticipantId", "dbo.Participants");
-            DropForeignKey("dbo.Votes", "CommentId", "dbo.Comments");
-            DropForeignKey("dbo.Comments", "CommentId", "dbo.Comments");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.Pictures", new[] { "ParticipantId" });
-            DropIndex("dbo.Votes", new[] { "Comment_id1" });
-            DropIndex("dbo.Votes", new[] { "Comment_id" });
             DropIndex("dbo.Votes", new[] { "Picture_id" });
             DropIndex("dbo.Votes", new[] { "CommentId" });
             DropIndex("dbo.Votes", new[] { "ParticipantId" });
-            DropIndex("dbo.Comments", new[] { "CommentId" });
+            DropIndex("dbo.Pictures", new[] { "ParticipantId" });
+            DropIndex("dbo.Comments", new[] { "Comment_id" });
             DropIndex("dbo.Comments", new[] { "PictureId" });
             DropIndex("dbo.Comments", new[] { "ParticipantId" });
             DropTable("dbo.AspNetUserLogins");
@@ -183,9 +173,9 @@ namespace RoastMeApplication.Migrations
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.Votes");
             DropTable("dbo.Pictures");
             DropTable("dbo.Participants");
-            DropTable("dbo.Votes");
             DropTable("dbo.Comments");
         }
     }

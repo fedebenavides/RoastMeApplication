@@ -7,13 +7,13 @@ namespace RoastMeApplication.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class replyadded : IMigrationMetadata
+    public sealed partial class initialCreate : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(replyadded));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initialCreate));
         
         string IMigrationMetadata.Id
         {
-            get { return "201706131659344_reply added"; }
+            get { return "201706131845534_initialCreate"; }
         }
         
         string IMigrationMetadata.Source

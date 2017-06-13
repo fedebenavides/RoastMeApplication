@@ -14,8 +14,6 @@ namespace RoastMeApplication.Models.Entities
         public string message { get; set; }
         public int voteScore { get; set; }
         public bool isFlagged { get; set; }
-        public bool isReply { get; set; }
-        public int? CommentRepliedId { get; set; } //if is Reply == true -> store Id of Comment Replied
 
         /*
          * *foreign keys
@@ -30,6 +28,7 @@ namespace RoastMeApplication.Models.Entities
         public Picture Picture { get; set; }
 
         public ICollection<Vote> Votes { get; set; }
+        public ICollection<Comment> Replies { get; set; } // if it has replies
 
         /*
          * *methods
