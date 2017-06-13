@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -32,6 +34,13 @@ namespace RoastMeApplication.Models.Entities
         /*
          * *methods
          * */
+        public Participant(string username, string password, string email)
+        {
+            this.username = username;
+            this.password = password;
+            this.email = email;
+        }
+
         public bool Login(string username, string pwd)
         {
             //if login successful, return true
