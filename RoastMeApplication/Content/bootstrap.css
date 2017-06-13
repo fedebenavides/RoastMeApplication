@@ -4510,10 +4510,6 @@ textarea.input-group-sm > .input-group-btn > .btn {
   color: black;
 }
 
-span.glyphicon-fire {
-    font-size: 40px;
-}
-
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
   color: #ffffff;
