@@ -15,14 +15,15 @@ namespace RoastMeApplication.Models
 
         /*
          * *foreign keys
-         * 
+         * */
         public int ParticipantId { get; set; }
         public int CommentId { get; set; }
 
         /*
          * *navigation props
          * */
-        public Participant participant { get; set; }
+        public Participant Participant { get; set; }
+        public Comment Comment { get; set; }
 
         /*
          * *methods

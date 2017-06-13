@@ -17,20 +17,20 @@ namespace RoastMeApplication.Models
 
         /*
          * *foreign keys
-         *
+         * */
         public int ParticipantId { get; set; }
         public int PictureId { get; set; }
-        public int CommentId { get; set; } //if comment is a reply of another comment*/
+        public int CommentId { get; set; } //if comment is a reply of another comment
 
         /*
          * *navigation props
          * */
-        public Participant participant { get; set; }
-        public Picture picture { get; set; }
-        //public Comment commentReplied { get; set; } //if comment is a reply of another comment
+        public Participant Participant { get; set; }
+        public Picture Picture { get; set; }
+        public Comment CommentReplied { get; set; } //if comment is a reply of another comment
 
-        public ICollection<Vote> votes { get; set; }
-        public ICollection<Vote> replies { get; set; } //if comment has replies
+        public ICollection<Vote> Votes { get; set; }
+        public ICollection<Vote> Comments { get; set; } //if comment has replies
 
         /*
          * *methods

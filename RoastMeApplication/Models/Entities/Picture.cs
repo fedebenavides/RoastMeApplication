@@ -18,14 +18,16 @@ namespace RoastMeApplication.Models
 
         /*
          * *foreign keys
-         * 
-        public int ParticipantId { get; set; } */
+         * */
+        public int ParticipantId { get; set; }
 
         /*
          * *navigation props
          * */
-        public Participant participant { get; set; }
-        public ICollection<Comment> comments { get; set; }
+        public Participant Participant { get; set; }
+
+        public ICollection<Vote> Votes { get; set; }
+        public ICollection<Comment> Comments { get; set; }
 
         /*
          * *methods

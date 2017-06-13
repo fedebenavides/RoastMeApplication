@@ -23,7 +23,6 @@ namespace RoastMeApplication.Models
         public ApplicationDbContext()
             : base("EFCodeFirstDbContext", throwIfV1Schema: false)
         {
-            
         }
 
         public static ApplicationDbContext Create()

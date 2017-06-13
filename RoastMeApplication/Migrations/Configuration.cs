@@ -9,7 +9,7 @@ namespace RoastMeApplication.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(RoastMeApplication.Models.ApplicationDbContext context)
