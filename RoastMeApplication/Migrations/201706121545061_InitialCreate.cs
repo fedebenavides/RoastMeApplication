@@ -10,22 +10,22 @@ namespace RoastMeApplication.Migrations
             CreateTable(
                 "dbo.Comments",
                 c => new
-                    {
-                        id = c.Int(nullable: false, identity: true),
-                        message = c.String(),
-                        voteScore = c.Int(nullable: false),
-                        isFlagged = c.Boolean(nullable: false),
-                        ParticipantId = c.Int(nullable: false),
-                        PictureId = c.Int(nullable: false),
-                        CommentId = c.Int(nullable: false),
-                    })
+                {
+                    id = c.Int(nullable: false, identity: true),
+                    message = c.String(),
+                    voteScore = c.Int(nullable: false),
+                    isFlagged = c.Boolean(nullable: false),
+                    ParticipantId = c.Int(nullable: false),
+                    PictureId = c.Int(nullable: false),
+                    CommentId = c.Int(nullable: false),
+                })
                 .PrimaryKey(t => t.id)
-                .ForeignKey("dbo.Comments", t => t.CommentId)
+                //.ForeignKey("dbo.Comments", t => t.CommentId)
                 .ForeignKey("dbo.Participants", t => t.ParticipantId, cascadeDelete: true)
                 .ForeignKey("dbo.Pictures", t => t.PictureId, cascadeDelete: true)
                 .Index(t => t.ParticipantId)
-                .Index(t => t.PictureId)
-                .Index(t => t.CommentId);
+                .Index(t => t.PictureId);
+                //.Index(t => t.CommentId);
             
             CreateTable(
                 "dbo.Votes",
@@ -42,9 +42,9 @@ namespace RoastMeApplication.Migrations
                 .PrimaryKey(t => t.id)
                 .ForeignKey("dbo.Comments", t => t.CommentId, cascadeDelete: true)
                 .ForeignKey("dbo.Pictures", t => t.Picture_id)
-                .ForeignKey("dbo.Participants", t => t.ParticipantId, cascadeDelete: true)
+                //.ForeignKey("dbo.Participants", t => t.ParticipantId, cascadeDelete: true)
                 .ForeignKey("dbo.Comments", t => t.Comment_id)
-                .ForeignKey("dbo.Comments", t => t.Comment_id1)
+                //.ForeignKey("dbo.Comments", t => t.Comment_id1)
                 .Index(t => t.ParticipantId)
                 .Index(t => t.CommentId)
                 .Index(t => t.Picture_id)
@@ -75,7 +75,7 @@ namespace RoastMeApplication.Migrations
                         ParticipantId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.id)
-                .ForeignKey("dbo.Participants", t => t.ParticipantId, cascadeDelete: true)
+                //.ForeignKey("dbo.Participants", t => t.ParticipantId, cascadeDelete: true)
                 .Index(t => t.ParticipantId);
             
             CreateTable(

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace RoastMeApplication.Models
+namespace RoastMeApplication.Models.Entities
 {
     public class Participant
     {
@@ -28,7 +28,7 @@ namespace RoastMeApplication.Models
         public ICollection<Vote> Votes { get; set; }
         public ICollection<Picture> Pictures { get; set; }
         public ICollection<Comment> Comments { get; set; }
-        
+
         /*
          * *methods
          * */
