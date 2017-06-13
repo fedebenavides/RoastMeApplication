@@ -205,6 +205,10 @@
     <Compile Include="Migrations\201706121545061_InitialCreate.Designer.cs">
       <DependentUpon>201706121545061_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706131659344_reply added.cs" />
+    <Compile Include="Migrations\201706131659344_reply added.Designer.cs">
+      <DependentUpon>201706131659344_reply added.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Entities\Comment.cs" />
@@ -291,6 +295,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201706121545061_InitialCreate.resx">
       <DependentUpon>201706121545061_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706131659344_reply added.resx">
+      <DependentUpon>201706131659344_reply added.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
