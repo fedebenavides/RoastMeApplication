@@ -46,20 +46,21 @@ namespace RoastMeApplication.Models.DAL
             return part;
         }
 
-        //public void Manage()
-        //{
-        //    //to be further defined
-        //}
-
-
         //(Roles = "Admin")
-        public static void Delete(int participantId)
+        public static void DeleteById(int id)
         {
-            //using (ApplicationDbContext ctx = new ApplicationDbContext())
-            //{
-            //    ctx.Participants.Add(participant);
-            //    ctx.SaveChanges();
-            //}
+            using (ApplicationDbContext ctx = new ApplicationDbContext())
+            {
+                //search
+                Participant part = ctx.Participants.Where(s => s.Id == id).FirstOrDefault();
+                if (part != null)
+                {
+                    //delete
+                    ctx.Participants.Remove(part);
+                }
+                //save changes
+                ctx.SaveChanges();
+            }
         }
 
     }
