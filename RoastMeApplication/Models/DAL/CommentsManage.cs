@@ -13,7 +13,7 @@ namespace RoastMeApplication.Models.DAL
             List<Comment> comment = null;
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                comment = db.Comments.Where(c=>c.PictureId == picture_id).OrderBy( c =>c.time).ToList();
+                comment = db.Comments.Where(c=>c.PictureId == picture_id).OrderBy( c =>c.Time).ToList();
                 
             }
             return comment;

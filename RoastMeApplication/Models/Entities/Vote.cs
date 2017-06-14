@@ -10,8 +10,8 @@ namespace RoastMeApplication.Models.Entities
         /*
          * *Atributes
          * */
-        public int id { get; set; }
-        public bool isLike { get; set; }
+        public int Id { get; set; }
+        public bool IsLike { get; set; }
 
         /*
          * *foreign keys
