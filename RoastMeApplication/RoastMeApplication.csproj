@@ -205,8 +205,17 @@
     <Compile Include="Migrations\201706131845534_initialCreate.Designer.cs">
       <DependentUpon>201706131845534_initialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706141850553_password placement.cs" />
+    <Compile Include="Migrations\201706141850553_password placement.Designer.cs">
+      <DependentUpon>201706141850553_password placement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706141853490_Datetime added.cs" />
+    <Compile Include="Migrations\201706141853490_Datetime added.Designer.cs">
+      <DependentUpon>201706141853490_Datetime added.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DAL\ParticipantManager.cs" />
     <Compile Include="Models\Entities\Comment.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -277,7 +286,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\DAL\" />
     <Folder Include="Models\Validation\" />
   </ItemGroup>
   <ItemGroup>
@@ -291,6 +299,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201706131845534_initialCreate.resx">
       <DependentUpon>201706131845534_initialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706141850553_password placement.resx">
+      <DependentUpon>201706141850553_password placement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706141853490_Datetime added.resx">
+      <DependentUpon>201706141853490_Datetime added.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

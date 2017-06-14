@@ -12,6 +12,7 @@ namespace RoastMeApplication.Models.Entities
          * */
         public int id { get; set; }
         public string message { get; set; }
+        public DateTime time { get; set; }
         public int voteScore { get; set; }
         public bool isFlagged { get; set; }
 

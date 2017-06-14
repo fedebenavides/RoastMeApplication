@@ -16,17 +16,7 @@ namespace RoastMeApplication.Migrations
         protected override void Seed(RoastMeApplication.Models.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
-            context.Participants.Add(new Participant("admin", "admin", "admin@abc.com"));
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            //context.Participants.Add(new Participant("admin", "admin", "admin@abc.com"));
         }
     }
 }

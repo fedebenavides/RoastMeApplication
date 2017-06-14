@@ -66,9 +66,9 @@ namespace RoastMeApplication.Models
     {
         [Required]
         [Display(Name = "Username")]
-        [MinLength(6, ErrorMessage = "The Username must be at least 6 characters long.")]
+        [MinLength(5, ErrorMessage = "The Username must be at least 6 characters long.")]
         [MaxLength(30, ErrorMessage = "The Username cannot longer than 30 characters.")]
-        [RegularExpression("[A-Za-z0-9._]", ErrorMessage = "The only special characters allowed in your username are \".\" and \"_\"")]
+        [RegularExpression("[A-Za-z0-9._]*", ErrorMessage = "The only special characters allowed in your username are \".\" and \"_\"")]
         public string Username { get; set; }
 
         [Required]
