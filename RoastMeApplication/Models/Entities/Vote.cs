@@ -10,8 +10,8 @@ namespace RoastMeApplication.Models.Entities
         /*
          * *Atributes
          * */
-        public int id { get; set; }
-        public bool isLike { get; set; }
+        public int Id { get; set; }
+        public bool IsLike { get; set; }
 
         /*
          * *foreign keys
@@ -28,10 +28,11 @@ namespace RoastMeApplication.Models.Entities
         /*
          * *methods
          * */
-        public void ChangeVote(bool isLike)
-        {
+        //METHODS WILL GO IN MANAGERS
+        //public void ChangeVote(bool isLike)
+        //{
 
-        }
+        //}
 
     }
 }

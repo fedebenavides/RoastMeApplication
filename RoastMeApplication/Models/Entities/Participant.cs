@@ -12,10 +12,9 @@ namespace RoastMeApplication.Models.Entities
         /*
          * *Atributes
          * */
-        public int id { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
-        public string email { get; set; }
+        public int Id { get; set; }
+        public string Username { get; set; }
+        public string Email { get; set; }
 
         /*
          * *foreign keys
@@ -31,32 +30,7 @@ namespace RoastMeApplication.Models.Entities
         public ICollection<Picture> Pictures { get; set; }
         public ICollection<Comment> Comments { get; set; }
 
-        /*
-         * *methods
-         * */
-        public Participant(string username, string password, string email)
-        {
-            this.username = username;
-            this.password = password;
-            this.email = email;
-        }
-
-        public bool Login(string username, string pwd)
-        {
-            //if login successful, return true
-            return true;
-        }
-
-        public void Manage()
-        {
-            //to be further defined
-        }
-
-        public bool DeleteAccount(int participantId)
-        {
-            //if delete successful, return true
-            return true;
-        }
+        
       
     }
 }

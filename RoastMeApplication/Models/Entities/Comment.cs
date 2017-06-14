@@ -10,10 +10,11 @@ namespace RoastMeApplication.Models.Entities
         /*
          * *Atributes
          * */
-        public int id { get; set; }
-        public string message { get; set; }
-        public int voteScore { get; set; }
-        public bool isFlagged { get; set; }
+        public int Id { get; set; }
+        public string Message { get; set; }
+        public DateTime Time { get; set; }
+        public int VoteScore { get; set; }
+        public bool IsFlagged { get; set; }
 
         /*
          * *foreign keys
@@ -33,19 +34,20 @@ namespace RoastMeApplication.Models.Entities
         /*
          * *methods
          * */
-        public void DeleteComment(int commentId)
-        {
-            //only admin can do this
-        }
+        ////METHODS WILL GO IN MANAGERS
+        //public void DeleteComment(int commentId)
+        //{
+        //    //only admin can do this
+        //}
 
-        public void SortComments(int option)
-        {
-            //define switch-case
-        }
+        //public void SortComments(int option)
+        //{
+        //    //define switch-case
+        //}
 
-        public void FlagComment(int pictureId)
-        {
+        //public void FlagComment(int pictureId)
+        //{
 
-        }
+        //}
     }
 }

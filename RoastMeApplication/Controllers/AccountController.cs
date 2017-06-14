@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using RoastMeApplication.Models;
+using RoastMeApplication.Models.Entities;
+using RoastMeApplication.Models.DAL;
 
 namespace RoastMeApplication.Controllers
 {
@@ -152,10 +154,17 @@ namespace RoastMeApplication.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-
+                
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    Participant participant = new Participant
+                    {
+                        Username = model.Username,
+                        Email = user.Email,
+                        ApplicationUserId = user.Id
+                    };
+                    ParticipantManager.Add(participant);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

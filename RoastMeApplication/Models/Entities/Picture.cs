@@ -10,11 +10,11 @@ namespace RoastMeApplication.Models.Entities
         /*
          * *Atributes
          * */
-        public int id { get; set; }
-        public string caption { get; set; }
-        public string imagePath { get; set; }
-        public DateTime time { get; set; }
-        public bool isFlagged { get; set; }
+        public int Id { get; set; }
+        public string Caption { get; set; }
+        public string ImagePath { get; set; }
+        public DateTime Time { get; set; }
+        public bool IsFlagged { get; set; }
 
         /*
          * *foreign keys
@@ -32,25 +32,25 @@ namespace RoastMeApplication.Models.Entities
         /*
          * *methods
          * */
+         //METHODS WILL GO IN MANAGERS
+        //public void ManagePicture(int pictureId)
+        //{
+        //    //to be further defined
+        //}
 
-        public void ManagePicture(int pictureId)
-        {
-            //to be further defined
-        }
+        //public void SortPictures(int option)
+        //{
+        //    //define switch-case
+        //}
 
-        public void SortPictures(int option)
-        {
-            //define switch-case
-        }
-
-        public void FlagPicture(int pictureId)
-        {
+        //public void FlagPicture(int pictureId)
+        //{
             
-        }
+        //}
 
-        public void SearchPicture(params string[] keywords)
-        {
+        //public void SearchPicture(params string[] keywords)
+        //{
 
-        }
+        //}
     }
 }
