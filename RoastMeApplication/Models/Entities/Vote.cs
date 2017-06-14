@@ -28,10 +28,11 @@ namespace RoastMeApplication.Models.Entities
         /*
          * *methods
          * */
-        public void ChangeVote(bool isLike)
-        {
+        //METHODS WILL GO IN MANAGERS
+        //public void ChangeVote(bool isLike)
+        //{
 
-        }
+        //}
 
     }
 }

@@ -34,28 +34,29 @@ namespace RoastMeApplication.Models.Entities
         /*
          * *methods
          * */
-        public Participant(string username, string password, string email)
-        {
-            this.username = username;
-            this.password = password;
-            this.email = email;
-        }
+        //METHODS WILL GO IN MANAGERS
+        //public Participant(string username, string password, string email)
+        //{
+        //    this.username = username;
+        //    this.password = password;
+        //    this.email = email;
+        //}
 
-        public bool Login(string username, string pwd)
-        {
-            //if login successful, return true
-            return true;
-        }
+        //public bool Login(string username, string pwd)
+        //{
+        //    //if login successful, return true
+        //    return true;
+        //}
 
-        public void Manage()
-        {
-            //to be further defined
-        }
+        //public void Manage()
+        //{
+        //    //to be further defined
+        //}
 
-        public bool DeleteAccount(int participantId)
-        {
-            //if delete successful, return true
-            return true;
+        //public bool DeleteAccount(int participantId)
+        //{
+        //    //if delete successful, return true
+        //    return true;
         }
       
     }

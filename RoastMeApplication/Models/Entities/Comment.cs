@@ -33,19 +33,20 @@ namespace RoastMeApplication.Models.Entities
         /*
          * *methods
          * */
-        public void DeleteComment(int commentId)
-        {
-            //only admin can do this
-        }
+        ////METHODS WILL GO IN MANAGERS
+        //public void DeleteComment(int commentId)
+        //{
+        //    //only admin can do this
+        //}
 
-        public void SortComments(int option)
-        {
-            //define switch-case
-        }
+        //public void SortComments(int option)
+        //{
+        //    //define switch-case
+        //}
 
-        public void FlagComment(int pictureId)
-        {
+        //public void FlagComment(int pictureId)
+        //{
 
-        }
+        //}
     }
 }

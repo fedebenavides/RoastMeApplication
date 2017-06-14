@@ -32,25 +32,25 @@ namespace RoastMeApplication.Models.Entities
         /*
          * *methods
          * */
+         //METHODS WILL GO IN MANAGERS
+        //public void ManagePicture(int pictureId)
+        //{
+        //    //to be further defined
+        //}
 
-        public void ManagePicture(int pictureId)
-        {
-            //to be further defined
-        }
+        //public void SortPictures(int option)
+        //{
+        //    //define switch-case
+        //}
 
-        public void SortPictures(int option)
-        {
-            //define switch-case
-        }
-
-        public void FlagPicture(int pictureId)
-        {
+        //public void FlagPicture(int pictureId)
+        //{
             
-        }
+        //}
 
-        public void SearchPicture(params string[] keywords)
-        {
+        //public void SearchPicture(params string[] keywords)
+        //{
 
-        }
+        //}
     }
 }
