@@ -8,17 +8,19 @@ namespace RoastMeApplication.Models.DAL
 {
     public class CommentsManage
     {
+        //Get Comment By Picture Id
         public static List<Comment> GetCommentByPictureId(int picture_id)
         {
             List<Comment> comment = null;
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                comment = db.Comments.Where(c=>c.PictureId == picture_id).OrderBy( c =>c.time).ToList();
+                comment = db.Comments.Where(c=>c.PictureId == picture_id).OrderBy( c =>c.Time).ToList();
                 
             }
             return comment;
         }
 
+        //Add Comment
         public static void AddComment(Comment comment)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
@@ -29,11 +31,65 @@ namespace RoastMeApplication.Models.DAL
             }
         }
 
-        public static List<Comment> EditCommentInfo(Comment comment)
+        //Edit Flagged
+        public static void EditCommentFlagged(Comment new_comment)
         {
-            List<Comment> comments = null;
-   
-            return comments;
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                Comment comment = db.Comments.Where(c => c.Id == new_comment.Id).FirstOrDefault();
+
+                if (comment != null)
+                {
+                    comment.IsFlagged = new_comment.IsFlagged;
+                    
+                }
+            }
+
+
+        }
+
+        public static List<Comment> GetCommentByFlagged(int picture_id)
+        {
+            List<Comment> comment = null;
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                comment = db.Comments.Where(c => c.PictureId == picture_id).OrderBy(c => c.Time).ToList();
+
+            }
+            return comment;
+        }
+
+        //Edit VotedScore
+        public static void EditCommentVotedScore(int comment_id,int score)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                Comment comment = db.Comments.Where(c => c.Id == comment_id).FirstOrDefault();
+
+                if (comment != null)
+                {
+                    comment.VoteScore = score;
+                }
+            }
+
+        }
+
+        //Delete Comment
+        public static void DeleteComment(Comment new_comment)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                Comment comment = db.Comments.Where(c => c.Id == new_comment.Id).FirstOrDefault();
+
+                if (comment != null)
+                {
+                    //delete
+                    db.Comments.Remove(comment);
+                }
+                //save changes
+                db.SaveChanges();
+            }
+
         }
     }
 }

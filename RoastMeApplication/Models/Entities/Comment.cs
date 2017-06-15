@@ -10,11 +10,11 @@ namespace RoastMeApplication.Models.Entities
         /*
          * *Atributes
          * */
-        public int id { get; set; }
-        public string message { get; set; }
-        public DateTime time { get; set; }
-        public int voteScore { get; set; }
-        public bool isFlagged { get; set; }
+        public int Id { get; set; }
+        public string Message { get; set; }
+        public DateTime Time { get; set; }
+        public int VoteScore { get; set; }
+        public bool IsFlagged { get; set; }
 
         /*
          * *foreign keys
