@@ -160,8 +160,8 @@ namespace RoastMeApplication.Controllers
                 {
                     Participant participant = new Participant
                     {
-                        username = model.Username,
-                        email = user.Email,
+                        Username = model.Username,
+                        Email = user.Email,
                         ApplicationUserId = user.Id
                     };
                     ParticipantManager.Add(participant);
