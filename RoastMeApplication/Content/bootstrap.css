@@ -5665,7 +5665,7 @@ body.modal-open,
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1030;
+  z-index: 1028;
   background-color: #000000;
 }
 
@@ -5739,10 +5739,35 @@ body.modal-open,
   margin-left: 0;
 }
 
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+/*#img-upload{
+    width: 100%;
+}*/
+
+
 @media screen and (min-width: 768px) {
   .modal-dialog {
     right: auto;
-    left: 50%;
+    /*left: 50%;*/
     width: 600px;
     padding-top: 30px;
     padding-bottom: 30px;
