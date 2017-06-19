@@ -12,9 +12,9 @@ namespace RoastMeApplication.Models.DAL
         public static List<Comment> GetCommentByPictureId(int picture_id)
         {
             List<Comment> comment = null;
-            using (ApplicationDbContext db = new ApplicationDbContext())
+            using (ApplicationDbContext ctx = new ApplicationDbContext())
             {
-                comment = db.Comments.Where(c=>c.PictureId == picture_id).OrderBy( c =>c.Time).ToList();
+                comment = ctx.Comments.Where(c=>c.PictureId == picture_id).OrderBy( c =>c.Time).ToList();
                 
             }
             return comment;
@@ -23,10 +23,10 @@ namespace RoastMeApplication.Models.DAL
         //Add Comment
         public static void AddComment(Comment comment)
         {
-            using (ApplicationDbContext db = new ApplicationDbContext())
+            using (ApplicationDbContext ctx = new ApplicationDbContext())
             {
-                db.Comments.Add(comment);
-                db.SaveChanges();
+                ctx.Comments.Add(comment);
+                ctx.SaveChanges();
 
             }
         }
@@ -34,15 +34,16 @@ namespace RoastMeApplication.Models.DAL
         //Edit Flagged
         public static void EditCommentFlagged(Comment new_comment)
         {
-            using (ApplicationDbContext db = new ApplicationDbContext())
+            using (ApplicationDbContext ctx = new ApplicationDbContext())
             {
-                Comment comment = db.Comments.Where(c => c.Id == new_comment.Id).FirstOrDefault();
+                Comment comment = ctx.Comments.Where(c => c.Id == new_comment.Id).FirstOrDefault();
 
                 if (comment != null)
                 {
                     comment.IsFlagged = new_comment.IsFlagged;
                     
                 }
+                ctx.SaveChanges();
             }
 
 
@@ -51,9 +52,9 @@ namespace RoastMeApplication.Models.DAL
         public static List<Comment> GetCommentByFlagged(int picture_id)
         {
             List<Comment> comment = null;
-            using (ApplicationDbContext db = new ApplicationDbContext())
+            using (ApplicationDbContext ctx = new ApplicationDbContext())
             {
-                comment = db.Comments.Where(c => c.PictureId == picture_id).OrderBy(c => c.Time).ToList();
+                comment = ctx.Comments.Where(c => c.PictureId == picture_id).OrderBy(c => c.Time).ToList();
 
             }
             return comment;
@@ -62,14 +63,15 @@ namespace RoastMeApplication.Models.DAL
         //Edit VotedScore
         public static void EditCommentVotedScore(int comment_id,int score)
         {
-            using (ApplicationDbContext db = new ApplicationDbContext())
+            using (ApplicationDbContext ctx = new ApplicationDbContext())
             {
-                Comment comment = db.Comments.Where(c => c.Id == comment_id).FirstOrDefault();
+                Comment comment = ctx.Comments.Where(c => c.Id == comment_id).FirstOrDefault();
 
                 if (comment != null)
                 {
                     comment.VoteScore = score;
                 }
+                ctx.SaveChanges();
             }
 
         }
@@ -77,17 +79,17 @@ namespace RoastMeApplication.Models.DAL
         //Delete Comment
         public static void DeleteComment(Comment new_comment)
         {
-            using (ApplicationDbContext db = new ApplicationDbContext())
+            using (ApplicationDbContext ctx = new ApplicationDbContext())
             {
-                Comment comment = db.Comments.Where(c => c.Id == new_comment.Id).FirstOrDefault();
+                Comment comment = ctx.Comments.Where(c => c.Id == new_comment.Id).FirstOrDefault();
 
                 if (comment != null)
                 {
                     //delete
-                    db.Comments.Remove(comment);
+                    ctx.Comments.Remove(comment);
                 }
                 //save changes
-                db.SaveChanges();
+                ctx.SaveChanges();
             }
 
         }

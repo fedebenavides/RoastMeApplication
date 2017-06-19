@@ -1,7 +1,7 @@
-﻿using RoastMeApplication.Models.Entities;
+﻿using RoastMeApplication.Models.DAL;
+using RoastMeApplication.Models.Entities;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,28 +16,39 @@ namespace RoastMeApplication.Controllers.EntityControllers
             return View();
         }
 
-        public ActionResult Add() {
-            return PartialView("SubmitRoastPartial");
-        }
-
         [HttpPost]
-        public ActionResult New(Picture pictureModel)
+        public ActionResult SubmitPicture(Picture img, HttpPostedFileBase file)
         {
+            if (!(file.FileName.Contains("jpg") || file.FileName.Contains("png") || file.FileName.Contains("gif") || file.FileName.Contains("jpeg")))
+            {
+                ModelState.AddModelError("Path", "Our image just use jpg,png,gif and jpeg");
+                TempData["error"] = "Our image just use jpg,png,gif and jpeg";
+            }
 
-            string fileName = Path.GetFileNameWithoutExtension(pictureModel.ImageFile.FileName);
-            string extension = Path.GetExtension(pictureModel.ImageFile.FileName);
-            fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-            pictureModel.ImagePath = "~/Image/" + fileName;
+            if (ModelState.IsValid)
+            {
+                if (file != null)
+                {
+                   string name = DateTime.Now.ToLocalTime().ToString();
+                   name.Replace(" ", "");
+                   file.SaveAs(HttpContext.Server.MapPath("~/Content/ProfilePicture/")//This is your img path.
+                                                              + name);
 
-            fileName = Path.Combine(Server.MapPath("~/Image/"), fileName);
-            pictureModel.ImageFile.SaveAs(fileName);           
-
-            return Content("Image Uploaded");
+                   img.ImagePath = name;
+                   img.Time = DateTime.Now;
+                   img.ParticipantId = img.ParticipantId;
+                   img.IsFlagged = false;
+                   img.Caption = img.Caption;
+                   PictureManager.AddPicture(img);
+                }
+                //img is true
+                return RedirectToAction("Index");
+            }else
+            {
+                // If img is error 
+                return RedirectToAction("Index");
+            }
+            
         }
-
-        public ActionResult Cancel() {
-            return RedirectToAction("Index");
-        }
-
     }
 }

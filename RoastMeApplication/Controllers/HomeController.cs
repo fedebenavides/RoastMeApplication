@@ -10,6 +10,7 @@ namespace RoastMeApplication.Controllers
     {
         public ActionResult Index()
         {
+           // ViewBag.pictures = PictureManager
             return View();
         }
 
