@@ -7,19 +7,13 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li style="padding-top: 8px;">
-                <!-- Trigger the modal with a button -->
-                <button type="button" class="btn" data-toggle="modal" data-target="#imgFormModal">
-                    <span class="glyphicon glyphicon-plus"></span> New Roast
-                </button>
+                <button class="btn" onclick="location.href='@Url.Action("Add", "Picture")';return false;"><span class="glyphicon glyphicon-plus"></span> New Roast</button>
         </li>
         <li>
             @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>
-
-    <!--Modal Partial View-->
-        @Html.Partial("SubmitRoastPartial")
 
     }
 }

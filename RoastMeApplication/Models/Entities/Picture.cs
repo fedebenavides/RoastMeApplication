@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -15,6 +16,9 @@ namespace RoastMeApplication.Models.Entities
         public string ImagePath { get; set; }
         public DateTime Time { get; set; }
         public bool IsFlagged { get; set; }
+
+        [NotMapped]
+        public HttpPostedFileBase ImageFile { get; set; }
 
         /*
          * *foreign keys
