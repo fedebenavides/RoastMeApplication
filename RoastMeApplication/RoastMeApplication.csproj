@@ -220,6 +220,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DAL\CommentsManage.cs" />
     <Compile Include="Models\DAL\ParticipantManager.cs" />
+    <Compile Include="Models\DAL\PictureManagerz.cs" />
     <Compile Include="Models\DAL\VoteManager.cs" />
     <Compile Include="Models\Entities\Comment.cs" />
     <Compile Include="Models\IdentityModels.cs" />

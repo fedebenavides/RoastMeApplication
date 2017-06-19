@@ -11,10 +11,10 @@ namespace RoastMeApplication.Models.DAL
         //Add Voted
         public static void AddVoted(Vote vote)
         {
-            using (ApplicationDbContext db = new ApplicationDbContext())
+            using (ApplicationDbContext ctx = new ApplicationDbContext())
             {
-                db.Votes.Add(vote);
-                db.SaveChanges();
+                ctx.Votes.Add(vote);
+                ctx.SaveChanges();
 
             }
         }
@@ -22,9 +22,9 @@ namespace RoastMeApplication.Models.DAL
         //Edit Voted Islike
         public static void EditVotedIslike(Vote new_vote)
         {
-            using (ApplicationDbContext db = new ApplicationDbContext())
+            using (ApplicationDbContext ctx = new ApplicationDbContext())
             {
-                Vote vote = db.Votes.Where(v => v.Id == new_vote.Id).FirstOrDefault();
+                Vote vote = ctx.Votes.Where(v => v.Id == new_vote.Id).FirstOrDefault();
 
                 if(vote != null)
                 {
@@ -37,9 +37,9 @@ namespace RoastMeApplication.Models.DAL
         public static void SumVotedScore(int commentId)
         {
             int score =0;
-            using (ApplicationDbContext db = new ApplicationDbContext())
+            using (ApplicationDbContext ctx = new ApplicationDbContext())
             {
-                List<Vote> votes = db.Votes.Where(v => v.CommentId == commentId).ToList();
+                List<Vote> votes = ctx.Votes.Where(v => v.CommentId == commentId).ToList();
                 foreach (Vote v in votes)
                 {
                     if (v.IsLike == true)
