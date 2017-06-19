@@ -16,37 +16,47 @@ namespace RoastMeApplication.Controllers.EntityControllers
             return View();
         }
 
+        public ActionResult Add() {
+            return PartialView("SubmitRoastPartial");
+        }
+
+        public ActionResult SubmitPicture()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult SubmitPicture(Picture img, HttpPostedFileBase file)
         {
-            if (!(file.FileName.Contains("jpg") || file.FileName.Contains("png") || file.FileName.Contains("gif") || file.FileName.Contains("jpeg")))
+            if (file != null)
             {
-                ModelState.AddModelError("Path", "Our image just use jpg,png,gif and jpeg");
-                TempData["error"] = "Our image just use jpg,png,gif and jpeg";
+                if (!(file.FileName.Contains("jpg") || file.FileName.Contains("png") || file.FileName.Contains("gif") || file.FileName.Contains("jpeg")))
+                {
+                    ModelState.AddModelError("Path", "Our image just use jpg,png,gif and jpeg");
+                    TempData["error"] = "Our image just use jpg,png,gif and jpeg";
+                }
             }
-
             if (ModelState.IsValid)
             {
                 if (file != null)
                 {
                    string name = DateTime.Now.ToLocalTime().ToString();
                    name.Replace(" ", "");
-                   file.SaveAs(HttpContext.Server.MapPath("~/Content/ProfilePicture/")//This is your img path.
-                                                              + name);
+                   file.SaveAs(Server.MapPath("~/Content/Images/" + name + ""));
 
                    img.ImagePath = name;
                    img.Time = DateTime.Now;
                    img.ParticipantId = img.ParticipantId;
-                   img.IsFlagged = false;
+                   img.IsFlagged = false;       
                    img.Caption = img.Caption;
                    PictureManager.AddPicture(img);
                 }
                 //img is true
-                return RedirectToAction("Index");
+                return Content("Success");
             }else
             {
                 // If img is error 
-                return RedirectToAction("Index");
+                return Content("Error");
             }
             
         }
