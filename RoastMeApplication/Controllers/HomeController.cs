@@ -10,7 +10,11 @@ namespace RoastMeApplication.Controllers
     {
         public ActionResult Index()
         {
-           // ViewBag.pictures = PictureManager
+            if(Session["participantID"] != null)
+            {
+                ViewBag.participantId = Session["participantID"];
+            }
+            
             return View();
         }
 

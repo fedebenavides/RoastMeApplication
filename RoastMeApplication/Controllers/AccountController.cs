@@ -81,6 +81,7 @@ namespace RoastMeApplication.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    Session["participantID"] = ParticipantManager.GetByEmail(model.Email).Id;
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -166,12 +167,14 @@ namespace RoastMeApplication.Controllers
                     };
                     ParticipantManager.Add(participant);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    //add the name to the session
+                    Session["participantID"] = participant.Id;
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -402,6 +405,7 @@ namespace RoastMeApplication.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            Session.Clear();
             return RedirectToAction("Index", "Home");
         }
 

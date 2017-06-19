@@ -14,7 +14,7 @@ namespace RoastMeApplication.Models.DAL
 
             using (ApplicationDbContext ctx = new ApplicationDbContext())
             {
-                allPics = ctx.Pictures.ToList();
+                allPics = ctx.Pictures.Include("Comments").ToList();
             }
 
             return allPics;
@@ -77,6 +77,13 @@ namespace RoastMeApplication.Models.DAL
             }
 
             return Pics;
+        }
+
+        public static List<Picture> SortByRecent()
+        {
+            List<Picture> allPics = GetAll();
+            List<Picture> sortedPics = allPics.OrderBy(p => p.Time).ToList();
+            return sortedPics;
         }
     }
 }

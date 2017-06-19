@@ -1,16 +1,17 @@
 ﻿@{
     ViewBag.Title = "Home Page";
     DateTime time = DateTime.Now;
+    int? id = ViewBag.participantId;
 }
 
 <div class="page-header row">
-    <h2 class="text-warning"><span class="glyphicon glyphicon-fire"></span> Check out our hottest and newest roasts!</h2>
+    <h2 class="text-warning"><span class="glyphicon glyphicon-fire"></span> Check out our hottest and newest roasts! @id</h2>
 
     <h4><a><span class="glyphicon glyphicon-time"></span> Recent</a>    <a class="text-danger"><span class="glyphicon glyphicon-heart"></span> Popular</a></h4>
 </div>
 
 
-@for(int i = 0; i < 5; i++) { 
+@for (int i = 0; i < 5; i++) {
 <div class="row">
     <a href="#">
         <div class="picture_index col-md-6">
