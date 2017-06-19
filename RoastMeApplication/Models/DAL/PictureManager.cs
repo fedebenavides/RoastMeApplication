@@ -55,21 +55,28 @@ namespace RoastMeApplication.Models.DAL
             }
         }
 
-        public static bool CheckImgByPath(string path)
+        public static List<Picture> GetPictureByCaption(String searchInfo)
         {
-            Picture img = null;
+            List<Picture> Pics = null;
+
             using (ApplicationDbContext ctx = new ApplicationDbContext())
             {
-                img = ctx.Pictures.Where(c => c.ImagePath == path).FirstOrDefault();
+                Pics = ctx.Pictures.Where(p=>p.Caption== searchInfo).ToList();
             }
-            if (img == null)
+
+            return Pics;
+        }
+
+        public static List<Picture> GetPictureByParticipantName(String searchInfo)
+        {
+            List<Picture> Pics = null;
+
+            using (ApplicationDbContext ctx = new ApplicationDbContext())
             {
-                return true;
+                Pics = ctx.Pictures.Include("Participant").Where(p=>p.Participant.Username.Contains(searchInfo)).ToList();
             }
-            else
-            {
-                return false;
-            }
+
+            return Pics;
         }
     }
 }
