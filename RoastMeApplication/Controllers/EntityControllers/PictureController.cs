@@ -29,29 +29,26 @@ namespace RoastMeApplication.Controllers.EntityControllers
             {
                 if (file != null)
                 {
-                    if (PictureManager.CheckImgByPath(file.FileName))
-                    {
-                        file.SaveAs(HttpContext.Server.MapPath("~/Content/ProfilePicture/")//This is your img path.
-                                                              + file.FileName);
+                   string name = DateTime.Now.ToLocalTime().ToString();
+                   name.Replace(" ", "");
+                   file.SaveAs(HttpContext.Server.MapPath("~/Content/ProfilePicture/")//This is your img path.
+                                                              + name);
 
-                        img.ImagePath = file.FileName;
-                        img.Time = DateTime.Now;
-                        img.ParticipantId = 11;
-                        img.IsFlagged = false;
-                        img.Caption = "";
-                        PictureManager.AddPicture(img);
-
-                        return RedirectToAction("Index");
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index");
-                    }
+                   img.ImagePath = name;
+                   img.Time = DateTime.Now;
+                   img.ParticipantId = img.ParticipantId;
+                   img.IsFlagged = false;
+                   img.Caption = img.Caption;
+                   PictureManager.AddPicture(img);
                 }
-
+                //img is true
+                return RedirectToAction("Index");
+            }else
+            {
+                // If img is error 
                 return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            
         }
     }
 }
