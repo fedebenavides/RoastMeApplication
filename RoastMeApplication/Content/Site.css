@@ -22,3 +22,15 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.picture_index{
+    color:#e47e1c;
+    margin-bottom:20px;
+    text-align:center;
+    box-shadow:1px 1px 3px #000;
+    border-radius:50px;
+}
+
+.picture_index img{
+    margin:10px;
+}
