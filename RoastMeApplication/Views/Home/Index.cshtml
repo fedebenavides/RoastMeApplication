@@ -13,11 +13,10 @@
     }
     List<Comment> comments = new List<Comment>();
 }
-<p>@pictures.Count</p>
 <div class="page-header row">
-    <h2 class="text-warning"><span class="glyphicon glyphicon-fire"></span> Check out our hottest and newest roasts!</h2>
+    <h3 class="text-warning"><span class="glyphicon glyphicon-fire"></span>Roast Feed</h3>
 
-    <h4><a><span class="glyphicon glyphicon-time"></span> Recent</a>    <a class="text-danger"><span class="glyphicon glyphicon-heart"></span> Popular</a></h4>
+    <h5><a><span class="glyphicon glyphicon-time"></span> Recent</a>    <a class="text-danger"><span class="glyphicon glyphicon-heart"></span> Popular</a></h5>
 </div>
 
 
@@ -30,11 +29,12 @@
             <div class="row">
                 <a href="#">
                 <div class="picture_index col-md-6">
-                    <h3>@p.Caption - @p.Participant.Username</h3>
+                    <h3>@p.Caption</h3>
+                    <h3>@p.Participant.Username</h3>
                     <hr />
                     <img class="img-circle" src="~/Content/Images/@p.ImagePath" alt="Caption" height="450" width="450" />
                      @{
-                         comments = CommentsManage.GetCommentByPictureId(p.Id);
+                         comments = p.Comments.ToList();
 
                       }
                      @if (comments != null && comments.Count != 0)
@@ -44,7 +44,7 @@
                             <p>@c.Message</p>
                          }
                      }
-                     <h4>...</h4>
+                     @*<h4>...</h4>*@
                  </div>
                  </a>
             </div>
@@ -57,11 +57,16 @@
                                 <div class="row">
                                     <a href="#">
                                         <div class="picture_index">
-                                            <h3>@p.Caption - @p.Participant.Username</h3>
+                                            <div id="userInfo">
+                                                <p id="index_username">@p.Participant.Username</p>
+                                                <p id="index_caption">@p.Caption</p>
+                                            </div>
+                                            
+                                            
                                             <hr />
                                             <img class="img-circle" src="~/Content/Images/@p.ImagePath" alt="Caption" height="450" width="450" />
                                             @{
-                                                comments = CommentsManage.GetCommentByPictureId(p.Id);
+                                                comments = p.Comments.ToList();
 
                                             }
                                             @if (comments != null && comments.Count != 0)
@@ -71,7 +76,8 @@
                                                     <p>@c.Message</p>
                                                 }
                                             }
-                                            <h4>...</h4>
+                                            @*<h4>...</h4>*@
+                                            <hr />
                                         </div>
                                     </a>
                                 </div>

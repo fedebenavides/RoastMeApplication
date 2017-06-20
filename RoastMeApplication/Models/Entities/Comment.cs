@@ -31,6 +31,18 @@ namespace RoastMeApplication.Models.Entities
         public ICollection<Vote> Votes { get; set; }
         public ICollection<Comment> Replies { get; set; } // if it has replies
 
+        public Comment()
+        {
+
+        }
+
+        public Comment(String msg, DateTime date, int score, bool isflagged) {
+            this.Message = msg;
+            this.Time = date;
+            this.VoteScore = score;
+            this.IsFlagged = IsFlagged;
+        }
+
         /*
          * *methods
          * */
