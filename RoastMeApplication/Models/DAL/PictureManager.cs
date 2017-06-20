@@ -14,7 +14,7 @@ namespace RoastMeApplication.Models.DAL
 
             using (ApplicationDbContext ctx = new ApplicationDbContext())
             {
-                allPics = ctx.Pictures.Include("Comments").ToList();
+                allPics = ctx.Pictures.Include("Comments").Include("Participant").ToList();
             }
 
             return allPics;
