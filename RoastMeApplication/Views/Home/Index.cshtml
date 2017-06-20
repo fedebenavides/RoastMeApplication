@@ -1,29 +1,89 @@
-﻿@{
+﻿@using RoastMeApplication.Models.Entities;
+@using RoastMeApplication.Models.DAL;
+@{
     ViewBag.Title = "Home Page";
-    DateTime time = DateTime.Now;
-    int? id = ViewBag.participantId;
+    List<Picture> pictures = this.ViewBag.Pictures as List<Picture>;
+    int page;
+    if (Request.RequestContext.RouteData.Values["page"]!=null)
+    {
+        page = int.Parse(Request.RequestContext.RouteData.Values["page"].ToString());
+    }else
+    {
+        page = 0;
+    }
+    List<Comment> comments = new List<Comment>();
 }
-
+<p>@pictures.Count</p>
 <div class="page-header row">
-    <h2 class="text-warning"><span class="glyphicon glyphicon-fire"></span> Check out our hottest and newest roasts! @id</h2>
+    <h2 class="text-warning"><span class="glyphicon glyphicon-fire"></span> Check out our hottest and newest roasts!</h2>
 
     <h4><a><span class="glyphicon glyphicon-time"></span> Recent</a>    <a class="text-danger"><span class="glyphicon glyphicon-heart"></span> Popular</a></h4>
 </div>
 
 
-@for (int i = 0; i < 5; i++) {
-<div class="row">
-    <a href="#">
-        <div class="picture_index col-md-6">
-            <h3>Caption - Username</h3>
-            <hr />
-            <img class="img-circle" src="~/Content/Images/Koala.jpg" alt="Caption" height="450" width="450" />
+@if (pictures != null && pictures.Count != 0)
+{
+    foreach (Picture p in pictures.GetRange(page, page + 4))
+    {
+        <div class="row">
+            <a href="#">
+            <div class="picture_index col-md-6">
+                <h3>@p.Caption - @p.Participant.Username</h3>
+                <hr />
+                <img class="img-circle" src="~/Content/Images/@p.ImagePath" alt="Caption" height="450" width="450" />
+                 @{
+                    comments = CommentsManage.GetCommentByPictureId(p.Id);
 
-            <p>Comment</p>
-            <p>Comment</p>
-            <p>Comment</p>
-            <h4>...</h4>
+                  }
+                 @if (comments != null && comments.Count != 0)
+                 {
+                     foreach (Comment c in comments)
+                     {
+                        <p>@c.Message</p>
+                     }
+                 }
+                 <h4>...</h4>
+             </div>
+             </a>
         </div>
-    </a>
-</div>
+     }
 }
+
+@{
+    int nb_page =0;
+    if (pictures.Count % 2 == 0)
+    {
+        nb_page = pictures.Count/2;
+    }
+    else
+    {
+        nb_page = pictures.Count/2+1;
+    }
+}
+<div>
+    @{
+        for (int i = 0;i < nb_page; i++)
+        {
+            <a href="#" class="page">@i</a>
+        }
+    }
+</div>
+
+<div id="black-background"></div>
+<div id="main">
+    <div id="picture">
+        <img src=""/>
+    </div>
+    <div id="comment">
+        @if (comments != null && comments.Count != 0)
+        {
+            foreach (Comment c in comments)
+            {
+                <p>@c.Message</p>
+            }
+        }
+    </div>
+    <form >
+        <input type="text" class="" placeholder="write a comment"/>
+    </form>
+</div>
