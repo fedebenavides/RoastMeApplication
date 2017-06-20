@@ -27,10 +27,16 @@ textarea {
     color:#e47e1c;
     margin-bottom:20px;
     text-align:center;
-    box-shadow:1px 1px 3px #000;
-    border-radius:50px;
+    border: solid #dddddd 1px;
+    margin: 0 auto;
+    width: 50%;
+    background-color: #ffffff;
 }
 
 .picture_index img{
     margin:10px;
+}
+
+body {
+background-color: #FAFAFA;
 }
