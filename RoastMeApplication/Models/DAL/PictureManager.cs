@@ -82,7 +82,7 @@ namespace RoastMeApplication.Models.DAL
         public static List<Picture> SortByRecent()
         {
             List<Picture> allPics = GetAll();
-            List<Picture> sortedPics = allPics.OrderBy(p => p.Time).ToList();
+            List<Picture> sortedPics = allPics.OrderByDescending(p => p.Time).ToList();
             return sortedPics;
         }
 
