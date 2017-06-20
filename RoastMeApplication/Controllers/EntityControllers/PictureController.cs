@@ -16,15 +16,15 @@ namespace RoastMeApplication.Controllers.EntityControllers
             return View();
         }
 
-        public ActionResult Add() {
-            return PartialView("SubmitRoastPartial");
-        }
-
         public ActionResult SubmitPicture()
         {
+            if (Session["participantID"] != null) {
+                ViewBag.ParticipantID = Session["participantID"];
+            }
+                       
             return View();
         }
-
+        
         [HttpPost]
         public ActionResult SubmitPicture(Picture img, HttpPostedFileBase file)
         {
@@ -40,9 +40,8 @@ namespace RoastMeApplication.Controllers.EntityControllers
             {
                 if (file != null)
                 {
-                   string name = DateTime.Now.ToLocalTime().ToString();
-                   name.Replace(" ", "");
-                   file.SaveAs(Server.MapPath("~/Content/Images/") + file.FileName );
+                   
+                   file.SaveAs(Server.MapPath("~/Content/Images/" + file.FileName));
 
                    img.ImagePath = file.FileName;
                    img.Time = DateTime.Now;

@@ -15,8 +15,17 @@ namespace RoastMeApplication.Controllers
             {
                 ViewBag.participantId = Session["participantID"];
             }
+            string listSort = Request.QueryString["ListSort"];
+            if (listSort == null || listSort == "Recent")
+            {
+                ViewBag.Pictures = PictureManager.SortByRecent();
+            }
+            else
+            {
+                ViewBag.Pictures = PictureManager.SortByPopular();
+            }
+             
             
-            ViewBag.Pictures = PictureManager.GetAll();
             return View();
         }
 
