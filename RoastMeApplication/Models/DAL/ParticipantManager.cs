@@ -46,6 +46,19 @@ namespace RoastMeApplication.Models.DAL
             return part;
         }
 
+        public static Participant GetByEmail(string email)
+        {
+            Participant part = null;
+            using (ApplicationDbContext ctx = new ApplicationDbContext())
+            {
+                //eager loading of the navigation property Program
+                part = ctx.Participants.Where(s => s.Email == email).FirstOrDefault();
+
+            }
+
+            return part;
+        }
+
         //(Roles = "Admin")
         public static void DeleteById(int id)
         {

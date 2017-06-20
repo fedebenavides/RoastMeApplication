@@ -29,8 +29,7 @@ namespace RoastMeApplication.Models.Entities
          * *navigation props
          * */
         public Participant Participant { get; set; }
-
-        public ICollection<Vote> Votes { get; set; }
+ 
         public ICollection<Comment> Comments { get; set; }
 
         /*
