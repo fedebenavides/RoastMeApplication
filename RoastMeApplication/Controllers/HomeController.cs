@@ -1,4 +1,5 @@
 ﻿using RoastMeApplication.Models.DAL;
+using RoastMeApplication.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,21 +12,52 @@ namespace RoastMeApplication.Controllers
     {
         public ActionResult Index()
         {
-            if(Session["participantID"] != null)
+            if(Session["participantID"] != null)//check participant id
             {
                 ViewBag.participantId = Session["participantID"];
             }
-            string listSort = Request.QueryString["ListSort"];
+
+            string listSort = Request.QueryString["ListSort"];//check if user prompted a type of sorting
+            List<Picture> picsList = null; //prepare pictures list
+
             if (listSort == null || listSort == "Recent")
             {
-                ViewBag.Pictures = PictureManager.SortByRecent();
+                picsList = PictureManager.SortByRecent();//default sorting, new first
             }
             else
             {
-                ViewBag.Pictures = PictureManager.SortByPopular();
+                picsList = PictureManager.SortByPopular();//popular sorting, most comments
             }
-             
+
+            ViewBag.pages = Math.Ceiling(((double)picsList.Count / 10));//number of pages, of 10 pictures each, in the pictures list
+
+            if (Request.QueryString["page"] == null) //if no page selected *DEFAULT*
+            {
+                if(picsList.Count <= 10) //if 10 pictures or less in total
+                {
+                    ViewBag.Pictures = picsList; //show all
+                }
+                else //if more than 10 pictures in total
+                {
+                    ViewBag.Pictures = picsList.GetRange(0, 10); //show firs ten
+                }
+            }else //if a page has been selected by the user
+            {
+                int pageNum = Int32.Parse(Request.QueryString["page"]);//get page number 
+
+                if (picsList.Count <= pageNum*10) //if current page has 10 pictures or less in total (last page)
+                {
+                    ViewBag.Pictures = picsList.GetRange((pageNum-1)*10, picsList.Count-1); //show remaining
+                }
+                else //if page has 10 pictures
+                {
+                    ViewBag.Pictures = picsList.GetRange((pageNum - 1) * 10, (pageNum - 1) * 10 + 10);//if page selected is "1" it will show range from 0 to 10
+                }
+                
+            }
+
             
+
             return View();
         }
 

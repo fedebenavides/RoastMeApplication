@@ -437,6 +437,7 @@ cite {
 
 .text-warning {
   color: #c09853;
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 .text-danger {
@@ -562,6 +563,7 @@ h4 small,
   padding-bottom: 9px;
   margin: 40px 0 20px;
   border-bottom: 1px solid #eeeeee;
+  text-align: center;
 }
 
 ul,

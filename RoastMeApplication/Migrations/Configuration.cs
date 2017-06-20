@@ -17,6 +17,7 @@ namespace RoastMeApplication.Migrations
         {
             //  This method will be called after migrating to the latest version.
             //context.Participants.Add(new Participant("admin", "admin", "admin@abc.com"));
+
         }
     }
 }

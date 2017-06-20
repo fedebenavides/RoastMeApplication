@@ -24,7 +24,6 @@ textarea {
 }
 
 .picture_index{
-    color:#e47e1c;
     margin-bottom:20px;
     text-align:center;
     border: solid #dddddd 1px;
@@ -39,4 +38,23 @@ textarea {
 
 body {
 background-color: #FAFAFA;
+}
+
+#index_username {
+    font-weight: bold;
+    display:inline;
+    color: #E47E1C;
+    font-size: 17px;
+    padding-right: 15px;
+}
+
+#index_caption{
+    color: black;
+    display:inline;
+}
+
+#userInfo {
+    padding-top: 20px;
+    text-align: left;
+    padding-left: 20px;
 }

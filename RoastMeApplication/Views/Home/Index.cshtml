@@ -2,7 +2,6 @@
 @using RoastMeApplication.Models.DAL;
 @{
     ViewBag.Title = "Home Page";
-
     List<Picture> pictures = this.ViewBag.Pictures as List<Picture>;
     int page;
     if (Request.RequestContext.RouteData.Values["page"]!=null )
@@ -16,9 +15,9 @@
 }
 <p>@pictures.Count</p>
 <div class="page-header row">
-    <h2 class="text-warning"><span class="glyphicon glyphicon-fire"></span> Check out our hottest and newest roasts!</h2>
+    <h3 class="text-warning"><span class="glyphicon glyphicon-fire"></span>Roast Feed</h3>
 
-    <h4><a href="?ListSort=Recent"><span class="glyphicon glyphicon-time"></span> Recent</a>    <a href="?ListSort=Popular" class="text-danger"><span class="glyphicon glyphicon-heart"></span> Popular</a></h4>
+    <h5><a href="?ListSort=Recent"><span class="glyphicon glyphicon-time"></span> Recent</a>    <a href="?ListSort=Popular" class="text-danger"><span class="glyphicon glyphicon-heart"></span> Popular</a></h5>
 </div>
 
 
@@ -74,17 +73,8 @@
              }
 }
 
-@{
-    int nb_page =0;
-    if (pictures.Count % 2 == 0)
-    {
-        nb_page = pictures.Count/2;
-    }
-    else
-    {
-        nb_page = pictures.Count/2+1;
-    }
-}
+
+
 <div>
     @{
         for (int i = 0;i < nb_page; i++)
