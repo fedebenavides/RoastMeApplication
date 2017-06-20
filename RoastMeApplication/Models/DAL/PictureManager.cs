@@ -85,5 +85,12 @@ namespace RoastMeApplication.Models.DAL
             List<Picture> sortedPics = allPics.OrderBy(p => p.Time).ToList();
             return sortedPics;
         }
+
+        public static List<Picture> SortByPopular()
+        {
+            List<Picture> allPics = GetAll();
+            List<Picture> sortedPics = allPics.OrderBy(p => p.Comments.ToList().Count).ToList();
+            return sortedPics;
+        }
     }
 }
