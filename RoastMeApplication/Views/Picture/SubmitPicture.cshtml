@@ -1,5 +1,8 @@
 ﻿@using RoastMeApplication.Models.Entities;
 @model Picture
+@{ 
+        int? id = ViewBag.ParticipantID;
+}
 
 <!DOCTYPE html>
 <html>
@@ -49,7 +52,9 @@
 
     @using (Html.BeginForm("SubmitPicture", "Picture", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
-
+        @Html.HiddenFor(m => m.ParticipantId, new { Value = id})
+        @Html.HiddenFor(m => m.Time, new { Value = DateTime.Now })
+        @Html.HiddenFor(m => m.IsFlagged, new { Value = false })
         <div class="container">
             <div class="col-md-6">
                 <div class="form-group">
