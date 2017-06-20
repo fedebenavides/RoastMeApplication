@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RoastMeApplication.Models.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +11,7 @@ namespace RoastMeApplication.Controllers
     {
         public ActionResult Index()
         {
-           // ViewBag.pictures = PictureManager
+            ViewBag.Pictures = PictureManager.GetAll();
             return View();
         }
 

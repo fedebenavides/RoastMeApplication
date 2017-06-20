@@ -42,9 +42,9 @@ namespace RoastMeApplication.Controllers.EntityControllers
                 {
                    string name = DateTime.Now.ToLocalTime().ToString();
                    name.Replace(" ", "");
-                   file.SaveAs(Server.MapPath("~/Content/Images/" + name + ""));
+                   file.SaveAs(Server.MapPath("~/Content/Images/") + file.FileName );
 
-                   img.ImagePath = name;
+                   img.ImagePath = file.FileName;
                    img.Time = DateTime.Now;
                    img.ParticipantId = img.ParticipantId;
                    img.IsFlagged = false;       
