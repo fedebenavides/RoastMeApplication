@@ -50,12 +50,14 @@
                  </a>
             </div>
                              }
-                         } else {
+                         }
+                         else
+                         {
                              foreach (Picture p in pictures)
                              {
                                 <div class="row">
                                     <a href="#">
-                                        <div class="picture_index col-md-6">
+                                        <div class="picture_index">
                                             <h3>@p.Caption - @p.Participant.Username</h3>
                                             <hr />
                                             <img class="img-circle" src="~/Content/Images/@p.ImagePath" alt="Caption" height="450" width="450" />
@@ -112,7 +114,5 @@
             }
         }
     </div>
-    <form >
-        <input type="text" class="" placeholder="write a comment"/>
-    </form>
+
 </div>
