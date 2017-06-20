@@ -37,9 +37,11 @@
                   }
                  @if (comments != null && comments.Count != 0)
                  {
-                     foreach (Comment c in comments)
+
+                     foreach (Comment c in comments.GetRange(0,2))
                      {
-                        <p>@c.Message</p>
+                         Participant participant = ParticipantManager.GetById(c.ParticipantId);
+                        <p>@participant.Username: @c.Message</p>
                      }
                  }
                  <h4>...</h4>
@@ -79,7 +81,8 @@
         {
             foreach (Comment c in comments)
             {
-                <p>@c.Message</p>
+                Participant participant = ParticipantManager.GetById(c.ParticipantId);
+                <p>@participant.Username: @c.Message</p>
             }
         }
     </div>
