@@ -46,10 +46,33 @@
         {
             foreach (Comment c in comments)
             {
+                int score = 0;
+                foreach (Vote v in c.Votes)
+                {
+                    if (v.IsLike == true)
+                    {
+                        score++;
+                    }else if(v.IsLike == false)
+                    {
+                        score++;
+                    }
+                }
                 <div id="commentInfo">
                     <p class="index_username">@c.Participant.Username</p>
                     <p class="index_caption">@c.Message</p>
                     <hr />
+                </div>
+
+                <div id="score">
+                    <p>score</p>
+                    @using (Html.BeginForm("SubmitComment", "Comment", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <input type="s" value=""/>
+                    }
+                    @using (Html.BeginForm("SubmitComment", "Comment", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <input type="submit" value="Flag"/>
+                    }
                 </div>
             }
         }

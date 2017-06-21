@@ -216,6 +216,10 @@
     <Compile Include="Migrations\201706141853490_Datetime added.Designer.cs">
       <DependentUpon>201706141853490_Datetime added.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706211840130_NullIslike.cs" />
+    <Compile Include="Migrations\201706211840130_NullIslike.Designer.cs">
+      <DependentUpon>201706211840130_NullIslike.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DAL\CommentsManage.cs" />
@@ -317,6 +321,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706141853490_Datetime added.resx">
       <DependentUpon>201706141853490_Datetime added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706211840130_NullIslike.resx">
+      <DependentUpon>201706211840130_NullIslike.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

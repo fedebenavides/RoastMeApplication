@@ -11,7 +11,7 @@ namespace RoastMeApplication.Models.Entities
          * *Atributes
          * */
         public int Id { get; set; }
-        public bool IsLike { get; set; }
+        public bool? IsLike { get; set; }
 
         /*
          * *foreign keys

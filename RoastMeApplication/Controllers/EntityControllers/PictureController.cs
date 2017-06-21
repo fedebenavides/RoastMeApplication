@@ -18,32 +18,31 @@ namespace RoastMeApplication.Controllers.EntityControllers
             {
                 ViewBag.Participant = ParticipantManager.GetById(Convert.ToInt32(Session["participantID"]));
             }
+            
             return View();
         }
         [HttpPost]
         public ActionResult SubmitComment(String message, String pic_id,String par_id)
         {
             Comment comment = new Comment();
+            DateTime t =DateTime.Now;
             comment.Message = message;
             comment.IsFlagged = false;
             comment.PictureId = Convert.ToInt32(pic_id);
-            comment.Time = DateTime.Now;
+            comment.Time = t;
             comment.VoteScore = 0;
             comment.ParticipantId = Convert.ToInt32(par_id);
             CommentsManage.AddComment(comment);
+            comment = CommentsManage.GetCommentByDateTime(t);
 
-            return RedirectToAction("PictureDetail", Convert.ToInt32(pic_id));
-        }
-        [HttpPost]
-        public ActionResult Voted(String comment_id, String pic_id, String par_id)
-        {
             Vote vote = new Vote();
-            vote.CommentId = Convert.ToInt32(comment_id);
+            vote.CommentId = Convert.ToInt32(comment.Id);
             vote.ParticipantId = Convert.ToInt32(par_id);
-            vote.IsLike = true;
+            vote.IsLike = null;
             VoteManager.AddVoted(vote);
             return RedirectToAction("PictureDetail", Convert.ToInt32(pic_id));
         }
+
 
         public ActionResult SubmitPicture()
         {
