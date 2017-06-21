@@ -19,13 +19,13 @@ namespace RoastMeApplication.Migrations
             //  This method will be called after migrating to the latest version.
             //context.Participants.Add(new Participant("admin", "admin", "admin@abc.com"));
 
-            Comment comment1 = new Comment("yer face is funney", DateTime.Now.AddDays(-5), 0, false);
-            comment1.ParticipantId = 3;
-            comment1.PictureId = 3;
+            //Comment comment1 = new Comment("yer face is funney", DateTime.Now.AddDays(-5), 0, false);
+            //comment1.ParticipantId = 3;
+            //comment1.PictureId = 3;
 
-            Comment comment2 = new Comment("yer breath smells funney", DateTime.Now.AddDays(-5), 0, false);
-            comment2.ParticipantId = 4;
-            comment2.PictureId = 3;
+            //Comment comment2 = new Comment("yer breath smells funney", DateTime.Now.AddDays(-5), 0, false);
+            //comment2.ParticipantId = 4;
+            //comment2.PictureId = 3;
 
             //Comment comment3 = new Comment("yer face is funney", DateTime.Now.AddDays(-5), 0, false);
             //comment3.ParticipantId = 5;
@@ -43,7 +43,7 @@ namespace RoastMeApplication.Migrations
             //comment6.ParticipantId = 5;
             //comment6.PictureId = 5;
 
-            context.Comments.AddRange(new List<Comment>() { comment1, comment2 });
+            //context.Comments.AddRange(new List<Comment>() { comment1, comment2 });
         }
     }
 }

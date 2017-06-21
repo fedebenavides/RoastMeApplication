@@ -30,7 +30,8 @@ namespace RoastMeApplication.Controllers.EntityControllers
             comment.Time = t;
             comment.VoteScore = 0;
             CommentsManage.AddComment(comment);
-            comment = CommentsManage.GetCommentByDateTime(t);
+            //comment = CommentsManage.GetCommentByDateTime(t);
+            //comment = CommentsManage.GetCommentById(comment.Id);
 
             //Vote vote = new Vote();
             //vote.CommentId = comment.Id;
@@ -38,7 +39,7 @@ namespace RoastMeApplication.Controllers.EntityControllers
             //vote.IsLike = null;
             //VoteManager.AddVoted(vote);
 
-            return RedirectToAction("PictureDetail");
+            return RedirectToAction("PictureDetail", new { id = comment.PictureId });
         }
 
 
