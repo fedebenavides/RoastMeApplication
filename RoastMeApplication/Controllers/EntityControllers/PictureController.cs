@@ -11,7 +11,7 @@ namespace RoastMeApplication.Controllers.EntityControllers
     public class PictureController : Controller
     {
         // GET: Picture
-        public ActionResult Index()
+        public ActionResult PictureDetail()
         {
             return View();
         }
