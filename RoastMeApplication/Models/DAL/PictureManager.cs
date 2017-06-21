@@ -38,7 +38,7 @@ namespace RoastMeApplication.Models.DAL
 
             using (ApplicationDbContext ctx = new ApplicationDbContext())
             {
-                pic = ctx.Pictures.Where(p => p.Id == id).FirstOrDefault();
+                pic = ctx.Pictures.Include("Participant").Include("Comments").Where(p => p.Id == id).FirstOrDefault();
             }
 
             return pic;
