@@ -27,11 +27,14 @@
 
 
                     <hr />
-                    <a href="#">
+                    <a href="@Url.Action("PictureDetail", "Picture", new { id = p.Id})">
                         <img class="img-circle" src="~/Content/Images/@p.ImagePath" alt="Caption" height="450" width="450" />
                         @{
-                            List<Comment> comments = p.Comments.OrderByDescending(c => c.Time).ToList().GetRange(0, 4);
-
+                            List<Comment> comments = p.Comments.OrderByDescending(c => c.Time).ToList();
+                            if(comments.Count() > 5)
+                            {
+                                comments = comments.GetRange(0, 4);
+                            }
                         }
                         <hr />
                     </a>
