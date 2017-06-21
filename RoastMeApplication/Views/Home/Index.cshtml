@@ -29,7 +29,11 @@
                     <hr />
                     <img class="img-circle" src="~/Content/Images/@p.ImagePath" alt="Caption" height="450" width="450" />
                     @{
-                        List<Comment> comments = p.Comments.OrderByDescending(c => c.Time).ToList().GetRange(0, 4);
+                        List<Comment> comments = p.Comments.OrderByDescending(c => c.Time).ToList();
+                        if(comments.Count > 5)
+                        {
+                            comments = comments.GetRange(0, 4);
+                        }
 
                     }
                     @if (comments != null && comments.Count != 0)
