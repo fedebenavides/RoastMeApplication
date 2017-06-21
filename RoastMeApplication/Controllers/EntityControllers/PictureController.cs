@@ -21,10 +21,18 @@ namespace RoastMeApplication.Controllers.EntityControllers
             return View();
         }
         [HttpPost]
-        public ActionResult SubmitComment(String message, String id)
+        public ActionResult SubmitComment(String message, String pic_id,String par_id)
         {
+            Comment comment = new Comment();
+            comment.Message = message;
+            comment.IsFlagged = false;
+            comment.PictureId = Convert.ToInt32(pic_id);
+            comment.Time = DateTime.Now;
+            comment.VoteScore = 0;
+            comment.ParticipantId = Convert.ToInt32(par_id);
+            CommentsManage.AddComment(comment);
 
-            return View("PictureDetail");
+            return RedirectToAction("PictureDetail");
         }
 
         public ActionResult SubmitPicture()
