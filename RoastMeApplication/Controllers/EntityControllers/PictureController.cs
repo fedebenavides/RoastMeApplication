@@ -32,7 +32,7 @@ namespace RoastMeApplication.Controllers.EntityControllers
             comment.ParticipantId = Convert.ToInt32(par_id);
             CommentsManage.AddComment(comment);
 
-            return RedirectToAction("PictureDetail");
+            return RedirectToAction("PictureDetail", Convert.ToInt32(pic_id));
         }
 
         public ActionResult SubmitPicture()
