@@ -69,3 +69,12 @@ background-color: #FAFAFA;
     text-align:center;
 }
 
+.centered-div {
+    width: 50%;
+    margin: auto;
+}
+
+#comment-input {
+    margin: auto;
+    height: 50px;
+}
