@@ -16,7 +16,7 @@ namespace RoastMeApplication.Controllers.EntityControllers
             ViewBag.picture = PictureManager.GetPictureById(id);
             if (Session["participantID"] != null)
             {
-                ViewBag.ParticipantID = Session["participantID"];
+                ViewBag.Participant = ParticipantManager.GetById(Convert.ToInt32(Session["participantID"]));
             }
             return View();
         }
