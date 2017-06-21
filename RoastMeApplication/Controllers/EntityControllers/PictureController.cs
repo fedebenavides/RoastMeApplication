@@ -22,25 +22,23 @@ namespace RoastMeApplication.Controllers.EntityControllers
             return View();
         }
         [HttpPost]
-        public ActionResult SubmitComment(String message, String pic_id,String par_id)
+        public ActionResult SubmitComment(Comment comment)
         {
-            Comment comment = new Comment();
-            DateTime t =DateTime.Now;
-            comment.Message = message;
+            comment.IsFlagged = false;            
+            DateTime t = DateTime.Now;
             comment.IsFlagged = false;
-            comment.PictureId = Convert.ToInt32(pic_id);
             comment.Time = t;
             comment.VoteScore = 0;
-            comment.ParticipantId = Convert.ToInt32(par_id);
             CommentsManage.AddComment(comment);
             comment = CommentsManage.GetCommentByDateTime(t);
 
-            Vote vote = new Vote();
-            vote.CommentId = Convert.ToInt32(comment.Id);
-            vote.ParticipantId = Convert.ToInt32(par_id);
-            vote.IsLike = null;
-            VoteManager.AddVoted(vote);
-            return RedirectToAction("PictureDetail", Convert.ToInt32(pic_id));
+            //Vote vote = new Vote();
+            //vote.CommentId = comment.Id;
+            //vote.ParticipantId = comment.;
+            //vote.IsLike = null;
+            //VoteManager.AddVoted(vote);
+
+            return RedirectToAction("PictureDetail");
         }
 
 

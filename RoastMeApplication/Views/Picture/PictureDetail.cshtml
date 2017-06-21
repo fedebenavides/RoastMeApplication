@@ -4,8 +4,9 @@
 @{
     ViewBag.Title = "Home Page";
     Picture p = this.ViewBag.picture as Picture;
-    if(Session["participantID"] != null) {
-        Participant CurrentParticipant = ViewBag.Participant as Participant;
+    Participant CurrentParticipant = null;
+    if (Session["participantID"] != null) {
+        CurrentParticipant = ViewBag.Participant as Participant;
     }
 }
 
@@ -32,9 +33,9 @@
         
         @using (Html.BeginForm("SubmitComment", "Comment", FormMethod.Post))
         {
-            @Html.HiddenFor(m => m.VoteScore, new { Value = 0});
-            @Html.HiddenFor(m => m.Time, new { Value = DateTime.Now })
-            @Html.HiddenFor(m => m.IsFlagged, new { Value = false })
+            @Html.HiddenFor(m => m.PictureId, new { Value = p.Id})
+            @Html.HiddenFor(m => m.ParticipantId, new { Value = CurrentParticipant.Id })
+            <input type="hidden" name="" />
             <div>
                 @Html.TextBoxFor(m => m.Message, htmlAttributes: new { placeholder = "Enter your comment", id = "comment-input" })
                 <input type="submit" value="Roast"/>
