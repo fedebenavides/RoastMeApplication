@@ -1,5 +1,6 @@
 ﻿@using RoastMeApplication.Models.Entities;
 @using RoastMeApplication.Models.DAL;
+@model Comment
 @{
     ViewBag.Title = "Home Page";
     Picture p = this.ViewBag.picture as Picture;
@@ -8,9 +9,10 @@
     }
 }
 
+
 <div class="row">
 
-    <div class="picture_index">
+    <div class="picture_index" style="margin-top: 30px;">
         <div id="userInfo">
             <p class="index_username">@p.Participant.Username</p>
             <p class="index_caption">@p.Caption</p>
@@ -19,13 +21,25 @@
 
         <hr />
             <img class="img-circle" src="~/Content/Images/@p.ImagePath" alt="Caption" height="450" width="450" />
-            
-            <hr />
+        @* put flag underneath image *@   
+        <hr />
         @*SEPARATION OF PICTURE ^ AND COMMENTS v *@
 
 
         @{
             List<Comment> comments = p.Comments.OrderByDescending(c => c.Time).ToList();
+        }
+        
+        @using (Html.BeginForm("SubmitComment", "Comment", FormMethod.Post))
+        {
+            @Html.HiddenFor(m => m.VoteScore, new { Value = 0});
+            @Html.HiddenFor(m => m.Time, new { Value = DateTime.Now })
+            @Html.HiddenFor(m => m.IsFlagged, new { Value = false })
+            <div>
+                @Html.TextBoxFor(m => m.Message, htmlAttributes: new { placeholder = "Enter your comment", id = "comment-input" })
+                <input type="submit" value="Roast"/>
+            </div>
+            <hr />
         }
 
         @if (comments != null && comments.Count != 0)
