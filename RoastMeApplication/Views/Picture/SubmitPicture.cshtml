@@ -50,36 +50,43 @@
         </div>
     </div>
 
-    @using (Html.BeginForm("SubmitPicture", "Picture", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-        @Html.HiddenFor(m => m.ParticipantId, new { Value = id})
-        @Html.HiddenFor(m => m.Time, new { Value = DateTime.Now })
-        @Html.HiddenFor(m => m.IsFlagged, new { Value = false })
-        <div class="container">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Upload Image</label>
-                    <div class="input-group">
-                        <span class="input-group-btn">
-                            <span class="btn btn-default btn-file">
-                                Browse… <input type="file" name="file" id="imgInp" required>
+    <div class="page-header row">
+        <h3 class="text-warning"><span class="glyphicon glyphicon-fire"></span>Get Roasted</h3>
+        <p>Submit an image and caption below to get roasted</p>
+    </div>
+
+        @using (Html.BeginForm("SubmitPicture", "Picture", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(m => m.ParticipantId, new { Value = id })
+            @Html.HiddenFor(m => m.Time, new { Value = DateTime.Now })
+            @Html.HiddenFor(m => m.IsFlagged, new { Value = false })
+            <div class="container">
+                <div class="col-md-12">
+                    <div class="form-group centered-div">
+                        <label>Upload Image</label>
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <span class="btn btn-default btn-file">
+                                    Browse… <input type="file" name="file" id="imgInp" required>
+                                </span>
                             </span>
-                        </span>
-                        <input type="text" class="form-control" readonly>
+                            <input type="text" class="form-control" readonly>
+                        </div>
+                        <img id='img-upload' />
                     </div>
-                    <img id='img-upload' />
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.TextAreaFor(m => m.Caption, htmlAttributes: new { placeholder = "Add a caption!", @class = "form-control", rows = 5, id = "comment" })
-            </div>
-            <input type="submit" value="Submit" class="btn" />
-            @*<input type="submit" value="Submit" class="btn" onclick="location.href='@Url.Action("SubmitPicture", "Picture")';return false;" />*@
-            <button class="btn" onclick="location.href='@Url.Action("Cancel", "Picture")';return false;">Cancel</button>
-        </div>
+                <div class="form-group col-md-12">
+                    @Html.TextAreaFor(m => m.Caption, htmlAttributes: new { placeholder = "Add a caption!", @class = "form-control centered-div", rows = 5, id = "comment" })
+                </div>
+                
+                <div class="form-group col-md-12" style="margin-left: 39%;">
+                    <input type="submit" value="Submit" class="btn" />
+                    <button class="btn" onclick="location.href='@Url.Action("Cancel", "Picture")';return false;">Cancel</button>
+                </div>
+           </div>
 
 
-    }
+        }
 </body>
 </html>
 
