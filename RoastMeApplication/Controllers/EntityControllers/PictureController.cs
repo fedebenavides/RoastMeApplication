@@ -13,8 +13,18 @@ namespace RoastMeApplication.Controllers.EntityControllers
         // GET: Picture
         public ActionResult PictureDetail(int id)
         {
-           
+            ViewBag.picture = PictureManager.GetPictureById(id);
+            if (Session["participantID"] != null)
+            {
+                ViewBag.ParticipantID = Session["participantID"];
+            }
             return View();
+        }
+        [HttpPost]
+        public ActionResult SubmitComment(String message, String id)
+        {
+
+            return View("PictureDetail");
         }
 
         public ActionResult SubmitPicture()
