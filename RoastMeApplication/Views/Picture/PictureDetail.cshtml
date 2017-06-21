@@ -28,7 +28,7 @@
 
 
         @{
-            List<Comment> comments = p.Comments.OrderByDescending(c => c.Time).ToList();
+            List<Comment> comments = CommentsManage.GetCommentByPictureId(p.Id).OrderByDescending(c => c.Time).ToList();
         }
         
         @using (Html.BeginForm("SubmitComment", "Comment", FormMethod.Post))
