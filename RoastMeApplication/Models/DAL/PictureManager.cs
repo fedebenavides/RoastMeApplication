@@ -32,6 +32,19 @@ namespace RoastMeApplication.Models.DAL
             return part.Pictures.ToList();
         }
 
+        public static Picture GetPictureById(int id)
+        {
+            Picture pic = null;
+
+            using (ApplicationDbContext ctx = new ApplicationDbContext())
+            {
+                pic = ctx.Pictures.Where(p => p.Id == id).FirstOrDefault();
+            }
+
+            return pic;
+        }
+
+
         public static void AddPicture(Picture picture)
         {
             using (ApplicationDbContext ctx = new ApplicationDbContext())
