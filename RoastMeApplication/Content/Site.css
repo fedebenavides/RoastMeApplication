@@ -69,3 +69,8 @@ background-color: #FAFAFA;
     text-align:center;
 }
 
+.centered-div {
+    width: 50%;
+    margin: auto;
+}
+
