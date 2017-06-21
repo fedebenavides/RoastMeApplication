@@ -14,12 +14,21 @@ namespace RoastMeApplication.Models.DAL
             List<Comment> comment = null;
             using (ApplicationDbContext ctx = new ApplicationDbContext())
             {
-                comment = ctx.Comments.Where(c=>c.PictureId == picture_id).OrderBy( c =>c.Time).ToList();
+                comment = ctx.Comments.Include("Votes").Where(c=>c.PictureId == picture_id).OrderBy( c =>c.Time).ToList();
                 
             }
             return comment;
         }
+        public static Comment GetCommentByDateTime(DateTime t)
+        {
+            Comment comment = null;
+            using (ApplicationDbContext ctx = new ApplicationDbContext())
+            {
+                comment = ctx.Comments.Where(c => c.Time == t).OrderBy(c => c.Time).FirstOrDefault();
 
+            }
+            return comment;
+        }
         //Add Comment
         public static void AddComment(Comment comment)
         {
