@@ -25,7 +25,7 @@
 
 
         @{
-            List<Comment> comments = p.Comments.OrderByDescending(c => c.Time).ToList();
+            List<Comment> comments = CommentsManage.GetCommentByPictureId(p.Id).OrderByDescending(c => c.Time).ToList();
         }
 
         @if (comments != null && comments.Count != 0)
