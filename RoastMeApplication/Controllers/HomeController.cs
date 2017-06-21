@@ -41,7 +41,8 @@ namespace RoastMeApplication.Controllers
                 {
                     ViewBag.Pictures = picsList.GetRange(0, 10); //show firs ten
                 }
-            }else //if a page has been selected by the user
+            }
+            else //if a page has been selected by the user
             {
                 int pageNum = Int32.Parse(Request.QueryString["page"]);//get page number 
 
