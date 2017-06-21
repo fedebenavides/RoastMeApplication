@@ -1,4 +1,48 @@
-﻿
+﻿@using RoastMeApplication.Models.Entities;
+@using RoastMeApplication.Models.DAL;
+@{
+    ViewBag.Title = "Home Page";
+    Picture p = this.ViewBag.picture as Picture;
+    if(Session["participantID"] != null) {
+        Participant CurrentParticipant = ViewBag.Participant as Participant;
+    }
+}
 
-@*SEPARATION FROM PICTURE AND COMMENTS (UP PICTURE, DOWN COMMENTS)*@
+<div class="row">
+
+    <div class="picture_index">
+        <div id="userInfo">
+            <p class="index_username">@p.Participant.Username</p>
+            <p class="index_caption">@p.Caption</p>
+        </div>
+
+
+        <hr />
+            <img class="img-circle" src="~/Content/Images/@p.ImagePath" alt="Caption" height="450" width="450" />
+            
+            <hr />
+        @*SEPARATION OF PICTURE ^ AND COMMENTS v *@
+
+
+        @{
+            List<Comment> comments = p.Comments.OrderByDescending(c => c.Time).ToList();
+        }
+
+        @if (comments != null && comments.Count != 0)
+        {
+            foreach (Comment c in comments)
+            {
+                <div id="commentInfo">
+                    <p class="index_username">@c.Participant.Username</p>
+                    <p class="index_caption">@c.Message</p>
+                    <hr />
+                </div>
+            }
+        }
+
+
+    </div>
+
+</div>
+
 
