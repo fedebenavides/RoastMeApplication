@@ -102,7 +102,7 @@ namespace RoastMeApplication.Models.DAL
         public static List<Picture> SortByPopular()
         {
             List<Picture> allPics = GetAll();
-            List<Picture> sortedPics = allPics.OrderBy(p => p.Comments.ToList().Count).ToList();
+            List<Picture> sortedPics = allPics.OrderByDescending(p => p.Comments.ToList().Count).ToList();
             return sortedPics;
         }
     }

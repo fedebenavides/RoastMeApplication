@@ -14,7 +14,7 @@ namespace RoastMeApplication.Models.DAL
             List<Comment> comment = null;
             using (ApplicationDbContext ctx = new ApplicationDbContext())
             {
-                comment = ctx.Comments.Include("Votes").Where(c=>c.PictureId == picture_id).OrderBy( c =>c.Time).ToList();
+                comment = ctx.Comments.Include("Votes").Include("Participant").Where(c=>c.PictureId == picture_id).OrderBy( c =>c.Time).ToList();
                 
             }
             return comment;
@@ -24,7 +24,7 @@ namespace RoastMeApplication.Models.DAL
             Comment comment = null;
             using (ApplicationDbContext ctx = new ApplicationDbContext())
             {
-                comment = ctx.Comments.Where(c => c.Time == t).OrderBy(c => c.Time).FirstOrDefault();
+                comment = ctx.Comments.Include("Picture").Where(c => c.Time == t).OrderBy(c => c.Time).FirstOrDefault();
 
             }
             return comment;
@@ -38,6 +38,16 @@ namespace RoastMeApplication.Models.DAL
                 ctx.SaveChanges();
 
             }
+        }
+
+        internal static Comment GetCommentById(int id)
+        {
+            Comment comment = null;
+            using (ApplicationDbContext ctx = new ApplicationDbContext())
+            {
+                comment = ctx.Comments.Include("Picture").Include("Votes").Include("Replies").Include("Participant").FirstOrDefault();
+            }
+            return comment;
         }
 
         //Edit Flagged

@@ -74,3 +74,7 @@ background-color: #FAFAFA;
     margin: auto;
 }
 
+#comment-input {
+    margin: auto;
+    height: 50px;
+}
