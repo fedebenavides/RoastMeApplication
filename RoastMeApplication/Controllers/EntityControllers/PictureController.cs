@@ -34,6 +34,16 @@ namespace RoastMeApplication.Controllers.EntityControllers
 
             return RedirectToAction("PictureDetail", Convert.ToInt32(pic_id));
         }
+        [HttpPost]
+        public ActionResult Voted(String comment_id, String pic_id, String par_id)
+        {
+            Vote vote = new Vote();
+            vote.CommentId = Convert.ToInt32(comment_id);
+            vote.ParticipantId = Convert.ToInt32(par_id);
+            vote.IsLike = true;
+            VoteManager.AddVoted(vote);
+            return RedirectToAction("PictureDetail", Convert.ToInt32(pic_id));
+        }
 
         public ActionResult SubmitPicture()
         {
