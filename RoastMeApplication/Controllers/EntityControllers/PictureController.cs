@@ -146,12 +146,12 @@ namespace RoastMeApplication.Controllers.EntityControllers
                     PictureManager.AddPicture(img);
                 }
                 //img is true
-                return Content("Success");
+                return RedirectToAction("Index", controllerName: "Home");
             }
             else
             {
                 // If img is error 
-                return Content("Error");
+                return View();
             }
 
         }
