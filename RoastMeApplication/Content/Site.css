@@ -83,3 +83,33 @@ background-color: #FAFAFA;
     margin: auto;
     height: 50px;
 }
+
+#comment-container {
+    /*border-bottom: 1px solid grey;*/
+}
+
+#commentInfo {
+    width:50%;
+    float:left;
+
+}
+
+#score {
+    width:50%;
+    float:left;
+
+}
+
+.flag {
+    border:none;
+}
+
+.like {
+    border:none;
+}
+
+.dislike {
+    border:none;
+
+}
+

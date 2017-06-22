@@ -2,7 +2,7 @@
 @using RoastMeApplication.Models.DAL;
 @model Comment
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Picture Detail";
     Picture p = this.ViewBag.picture as Picture;
     Participant CurrentParticipant = null;
     if (Session["participantID"] != null) {
@@ -46,7 +46,7 @@
         <hr />
 
         @{
-            List<Comment> comments = CommentsManage.GetCommentByPictureId(p.Id).OrderByDescending(c => c.Time).ToList();
+            List<Comment> comments = ViewBag.comments;
         }
         
         @using (Html.BeginForm("SubmitComment", "Picture", FormMethod.Post))
@@ -60,70 +60,77 @@
             </div>
             <hr />
         }
+    
+        
 
-        @if (comments != null && comments.Count != 0)
-        {
-            foreach (Comment c in comments)
+    @if (comments != null && comments.Count != 0)
             {
-                String background= "white"; 
-                <div id="commentInfo">
-                    <p class="index_username">@c.Participant.Username</p>
-                    @if (c.Message != null)
-                    {
-                        <p class="index_caption">@c.Message</p>
-                    }
-                   
-                    <hr />
-                </div>
-
-                if (c.Votes != null && c.Votes.Count!=0)
+                foreach (Comment c in comments)
                 {
-                    foreach (Vote v in c.Votes)
-                    {
-                        if (v.CommentId == c.Id)
+                    String background = "white";
+            <div id="comment-container" class="row">
+                    <div id="commentInfo">
+                        <p class="index_username">@c.Participant.Username</p>
+                        @if (c.Message != null)
                         {
-                            if (v.IsLike == true)
+                            <p class="index_caption">@c.Message</p>
+                        }
+
+                       
+                    </div>
+                    
+
+                    @if (c.Votes != null && c.Votes.Count != 0)
+                    {
+                        foreach (Vote v in c.Votes)
+                        {
+                            if (v.CommentId == c.Id)
                             {
-                                background = "green"; //like
-                            }
-                            else if(v.IsLike == false)
-                            {
-                                background = "blue";//dislike
-                            }
-                            else if (v.IsLike == null)
-                            {
-                                background = "white";//null
+                                if (v.IsLike == true)
+                                {
+                                    background = "green"; //like
+                                }
+                                else if (v.IsLike == false)
+                                {
+                                    background = "blue";//dislike
+                                }
+                                else if (v.IsLike == null)
+                                {
+                                    background = "white";//null
+                                }
                             }
                         }
                     }
-                }
-                <div id="score" class="@c.Id">
-                    <p>@c.VoteScore</p>
-                    @if (background == "green")//rgb(0, 128, 0)
-                    {
-                        <button class="like" style="background-color:@background">like</button>
-                        <button class="dislike"  style="background-color:white">dislike</button>
-                    }
-                    else if (background == "blue")//rgb(0, 0, 255)
-                    {
-                        <button class="like" style="background-color:white">like</button>
-                        <button class="dislike" style="background-color:@background">dislike</button>
-                    }
-                    else if (background == "white")//rgb(255, 255, 255)
-                    {
-                        <button class="like" style="background-color:@background">like</button>
-                        <button class="dislike" style="background-color:@background">dislike</button>
-                    }
+                    <div id="score" class="@c.Id">
+                        <p style="font-weight: bold; color: #E47E1C">@c.VoteScore</p>
+                        @if (background == "green")//rgb(0, 128, 0)
+                        {
+                            <button class="like" style="background-color:@background"><span class="glyphicon glyphicon-arrow-up"></span></button>
+                            <button class="dislike" style="background-color:white"><span class="glyphicon glyphicon-arrow-down"></span></button>
+                        }
+                        else if (background == "blue")//rgb(0, 0, 255)
+                        {
+                            <button class="like" style="background-color:white"><span class="glyphicon glyphicon-arrow-up"></span></button>
+                            <button class="dislike" style="background-color:@background"><span class="glyphicon glyphicon-arrow-down"></span></button>
+                        }
+                        else if (background == "white")//rgb(255, 255, 255)
+                        {
+                            <button class="like" style="background-color:@background"><span class="glyphicon glyphicon-arrow-up"></span></button>
+                            <button class="dislike" style="background-color:@background"><span class="glyphicon glyphicon-arrow-down"></span></button>
+                        }
 
-                    <button class="flag">flag</button>
+                        <button class="flag"><span class="glyphicon glyphicon-flag"></span></button>
+                    </div>
                 </div>
+                <hr />
+                }
             }
-        }
 
+            <hr />
+         </div>
+        </div>@*comment container end*@
 
-    </div>
-
-</div>
+        </div>
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 <script>
     $(document).ready(function () {
