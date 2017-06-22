@@ -30,11 +30,15 @@ namespace RoastMeApplication.Controllers.EntityControllers
             Vote vote = null;
             JObject jobj = JObject.Parse(JsonResult);
             vote = VoteManager.getVotedByComment_idAndParticipantId(Convert.ToInt32(jobj["CommentId"]), Convert.ToInt32(jobj["ParticipantId"]));
+            int comment_id = Convert.ToInt32(jobj["CommentId"]);
+            int partucipant_id = Convert.ToInt32(jobj["ParticipantId"]);
+            int ck = Convert.ToInt32(jobj["isLike"]);
             if (vote == null)
             {
-                vote.CommentId = Convert.ToInt32(jobj["CommentId"]);
-                vote.ParticipantId = Convert.ToInt32(jobj["ParticipantId"]);
-                int ck = Convert.ToInt32(jobj["isLike"]);
+                vote = new Vote();
+                vote.CommentId = comment_id;
+                vote.ParticipantId = partucipant_id;
+                
                 vote.IsLike = null;
                 if (ck == -1)
                 {
@@ -52,7 +56,6 @@ namespace RoastMeApplication.Controllers.EntityControllers
                 VoteManager.SumVotedScore(Convert.ToInt32(jobj["CommentId"]));
             }else
             {
-                int ck = Convert.ToInt32(jobj["isLike"]);
                 vote.IsLike = null;
                 if (ck ==-1)
                 {
