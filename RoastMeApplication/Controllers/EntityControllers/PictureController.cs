@@ -163,5 +163,41 @@ namespace RoastMeApplication.Controllers.EntityControllers
             ViewBag.FlaggedComments = CommentsManage.GetFlagged();
             return View();
         }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public ActionResult ManageFlags(string Type, string Action, int id)
+        {
+                if(Type == "Picture")
+            {
+                Picture pic = PictureManager.GetPictureById(id);
+                if(Action == "unflag")
+                {
+                    pic.IsFlagged = false;
+                    PictureManager.EditPictureFlagged(pic);
+                }
+                else
+                {
+                    PictureManager.DeletePicture(pic);
+                }
+            }
+            else
+            {
+                Comment comment = CommentsManage.GetCommentById(id);
+                if (Action == "unflag")
+                {
+                    comment.IsFlagged = false;
+                    CommentsManage.EditCommentFlagged(comment);
+                }
+                else
+                {
+                    CommentsManage.DeleteComment(comment);
+                }
+            }
+            ViewBag.FlaggedPics = PictureManager.GetFlagged();
+            ViewBag.FlaggedComments = CommentsManage.GetFlagged();
+
+            return View();
+        }
     }
 }

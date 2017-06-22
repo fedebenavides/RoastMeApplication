@@ -57,7 +57,7 @@ namespace RoastMeApplication.Models.DAL
             Comment comment = null;
             using (ApplicationDbContext ctx = new ApplicationDbContext())
             {
-                comment = ctx.Comments.Include("Picture").Include("Votes").Include("Replies").Include("Participant").FirstOrDefault();
+                comment = ctx.Comments.Include("Picture").Include("Votes").Include("Replies").Include("Participant").Where(c => c.Id == id).FirstOrDefault();
             }
             return comment;
         }
@@ -65,19 +65,17 @@ namespace RoastMeApplication.Models.DAL
         //Edit Flagged
         public static void EditCommentFlagged(Comment new_comment)
         {
+            Comment comment = null;
             using (ApplicationDbContext ctx = new ApplicationDbContext())
             {
-                Comment comment = ctx.Comments.Where(c => c.Id == new_comment.Id).FirstOrDefault();
+                comment = ctx.Comments.Where(c => c.Id == new_comment.Id).FirstOrDefault();
 
                 if (comment != null)
                 {
-                    comment.IsFlagged = new_comment.IsFlagged;
-                    
+                    comment.IsFlagged = new_comment.IsFlagged;                    
                 }
                 ctx.SaveChanges();
             }
-
-
         }
 
         public static List<Comment> GetCommentByFlagged(int picture_id)
@@ -123,6 +121,18 @@ namespace RoastMeApplication.Models.DAL
                 ctx.SaveChanges();
             }
 
+        }
+
+        public static List<Comment> SortByRecent(List<Comment> comments)
+        {
+            List<Comment> sortedComments = comments.OrderByDescending(c => c.Time).ToList();
+            return sortedComments;
+        }
+
+        public static List<Comment> SortByPopular(List<Comment> comments)
+        {
+            List<Comment> sortedComments = comments.OrderByDescending(c => c.VoteScore).ToList();
+            return sortedComments;
         }
 
         public static List<Comment> GetFlagged()
