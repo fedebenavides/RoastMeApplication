@@ -10,7 +10,6 @@
     }
 }
 
-<h1>@p.Id</h1>
 <div class="row">
 
     <div class="picture_index" style="margin-top: 30px;">
@@ -47,39 +46,7 @@
         {
             foreach (Comment c in comments)
             {
-
-                //String Islike = "white"; // blue is false red is true  green is null white is not exist
-                //if(c.Votes!=null && c.Votes.Count != 0)
-                //{
-                //    int score = 0;
-                //    foreach (Vote v in c.Votes)
-                //    {
-                //        if (v.IsLike == true)
-                //        {
-                //            score++;
-                //        }
-                //        else if (v.IsLike == false)
-                //        {
-                //            score++;
-                //        }
-                //        if (v.ParticipantId == CurrentParticipant.Id)
-                //        {
-                //            if (v.IsLike == null)
-                //            {
-                //                Islike = "green";
-                //            }
-                //            else if (v.IsLike == true)
-                //            {
-                //                Islike = "red";
-                //            }
-                //            else if (v.IsLike == false)
-                //            {
-                //                Islike = "blue";
-                //            }
-                //        }
-                //    }
-                //}
-
+                String background= "white"; 
                 <div id="commentInfo">
                     <p class="index_username">@c.Participant.Username</p>
                     @if (c.Message != null)
@@ -90,13 +57,46 @@
                     <hr />
                 </div>
 
-                <div id="score">
-                    <p>1</p>
-                    <input class="comment_id" type="hidden" value=@c.Id/>
-                    <input  class="part_id" type="hidden" value=@CurrentParticipant.Id/>
-                    <button class="like" style="background-color:white">like</button>
-                    <button class="dislike" style="background-color:wheat">dislike</button>
-                    <button class="flag">dislike</button>
+                if (c.Votes != null && c.Votes.Count!=0)
+                {
+                    foreach (Vote v in c.Votes)
+                    {
+                        if (v.CommentId == c.Id)
+                        {
+                            if (v.IsLike == true)
+                            {
+                                background = "green"; //like
+                            }
+                            else if(v.IsLike == false)
+                            {
+                                background = "blue";//dislike
+                            }
+                            else if (v.IsLike == null)
+                            {
+                                background = "white";//null
+                            }
+                        }
+                    }
+                }
+                <div id="score" class="@c.Id">
+                    <p>@c.VoteScore</p>
+                    @if (background == "green")//rgb(0, 128, 0)
+                    {
+                        <button class="like" style="background-color:@background">like</button>
+                        <button class="dislike"  style="background-color:white">dislike</button>
+                    }
+                    else if (background == "blue")//rgb(0, 0, 255)
+                    {
+                        <button class="like" style="background-color:white">like</button>
+                        <button class="dislike" style="background-color:@background">dislike</button>
+                    }
+                    else if (background == "white")//rgb(255, 255, 255)
+                    {
+                        <button class="like" style="background-color:@background">like</button>
+                        <button class="dislike" style="background-color:@background">dislike</button>
+                    }
+
+                    <button class="flag">flag</button>
                 </div>
             }
         }
@@ -108,22 +108,45 @@
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 <script>
     $(document).ready(function () {
+        var participant_id = @CurrentParticipant.Id;
+
         var JsonResult;
         $('.like').click(function () {
-            var part_id= this.prev('input').val();
-            var comment_id = this.prev('input').prev('input').val();
-            alert(comment_id + " " + part_id);
-            JsonResult = "{'IsLike':1,'ParticipantId': " + part_id + ",'CommentId':+"+comment_id+"}";
-            JsonResult = "{'IsLike':-1,'ParticipantId': " + part_id + ",'CommentId':+" + comment_id + "}";
+            var comment_id = this.parentElement.className;
+            var rgb = $(this).css("background-color");
+            if(rgb == 'rgb(255, 255, 255)'){
+                JsonResult = "{'IsLike':1,'ParticipantId': " + participant_id + ",'CommentId':"+comment_id+"}";
+            }else if(rgb == 'rgb(0, 128, 0)'){
+                JsonResult = "{'IsLike':-1,'ParticipantId': " + participant_id + ",'CommentId':" + comment_id + "}";
+            }
+            alert(JsonResult);
+            $.ajax({
+                url: '@Url.Action("LikeVote", "Picture")',
+                type: 'GET',
+                dataType: 'json',
+                cache: false,
+                data: JsonResult,
+                success: function (results) {
+                    alert(results)
+                },
+                error: function () {
+                    alert('Error occured');
+                }
+            });
         });
         $('.dislike').click(function () {
-            JsonResult = "{'IsLike':0,'ParticipantId': " + part_id + ",'CommentId':+" + comment_id + "}";
-            JsonResult = "{'IsLike':-1,'ParticipantId': " + part_id + ",'CommentId':+" + comment_id + "}";
+            var comment_id = this.parentElement.className;
+            var rgb = $(this).css("background-color");
+            if(rgb == 'rgb(255, 255, 255)'){
+                JsonResult = "{'isLike':0,'ParticipantId': " + participant_id + ",'CommentId':+" + comment_id + "}";
+            }else if(rgb == 'rgb(0, 128, 0)'){
+                JsonResult = "{'IsLike':-1,'ParticipantId': " + participant_id + ",'CommentId':+" + comment_id + "}";
+            }         
         });
         $('.flag').click(function () {
             JsonResult = "{'IsFlagged':1,'CommentId':+" + comment_id + "}";
         });
-        $.ajax({ cache: false });
+        
      });
 
 </script>

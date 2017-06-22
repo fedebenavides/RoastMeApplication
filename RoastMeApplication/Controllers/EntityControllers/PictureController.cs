@@ -1,4 +1,5 @@
-﻿using RoastMeApplication.Models.DAL;
+﻿using Newtonsoft.Json.Linq;
+using RoastMeApplication.Models.DAL;
 using RoastMeApplication.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,55 @@ namespace RoastMeApplication.Controllers.EntityControllers
             
             return View();
         }
+        [HttpGet]
+        public JsonResult LikeVote(string JsonResult)
+        {
+            string result = JsonResult;
+            Vote vote = null;
+            JObject jobj = JObject.Parse(JsonResult);
+            vote = VoteManager.getVotedByComment_idAndParticipantId(Convert.ToInt32(jobj["CommentId"]), Convert.ToInt32(jobj["ParticipantId"]));
+            if (vote == null)
+            {
+                vote.CommentId = Convert.ToInt32(jobj["CommentId"]);
+                vote.ParticipantId = Convert.ToInt32(jobj["ParticipantId"]);
+                int ck = Convert.ToInt32(jobj["isLike"]);
+                vote.IsLike = null;
+                if (ck == -1)
+                {
+                    vote.IsLike = null;
+                }
+                else if (ck == 0)
+                {
+                    vote.IsLike = false;
+                }
+                else if (ck == 1)
+                {
+                    vote.IsLike = true;
+                }
+                VoteManager.AddVoted(vote);
+                VoteManager.SumVotedScore(Convert.ToInt32(jobj["CommentId"]));
+            }else
+            {
+                int ck = Convert.ToInt32(jobj["isLike"]);
+                vote.IsLike = null;
+                if (ck ==-1)
+                {
+                    vote.IsLike = null;
+                }
+                else if(ck == 0)
+                {
+                    vote.IsLike = false;
+                }
+                else if(ck == 1)
+                {
+                    vote.IsLike = true;
+                }
+                VoteManager.EditVotedIslike(vote);
+                VoteManager.SumVotedScore(Convert.ToInt32(jobj["CommentId"]));
+            }
+            return Json(JsonResult, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public ActionResult SubmitComment(Comment comment)
         {
