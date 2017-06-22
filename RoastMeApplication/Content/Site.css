@@ -37,6 +37,11 @@ textarea {
     margin:10px;
 }
 
+.indexImg{
+    width:25%;
+    height:25%;
+}
+
 body {
 background-color: #FAFAFA;
 }

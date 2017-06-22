@@ -30,7 +30,7 @@
                     @if (Request.IsAuthenticated)
                     {
                         <a href="@Url.Action("PictureDetail", "Picture", new { id = p.Id })">
-                            <img class="img-circle" src="~/Content/Images/@p.ImagePath" alt="Caption" height="450" width="450" />
+                            <img class="img-circle indexImg" src="~/Content/Images/@p.ImagePath" alt="Caption"/>
                             @{
                                 comments = CommentsManage.GetCommentByPictureId(p.Id).OrderByDescending(c => c.Time).ToList();
                                 if (comments != null && comments.Count() > 5)
@@ -42,7 +42,7 @@
                     }
                     else
                     {
-                        <img class="img-circle" src="~/Content/Images/@p.ImagePath" alt="Caption" height="450" width="450" />
+                        <img class="img-circle indexImg" src="~/Content/Images/@p.ImagePath" alt="Caption"/>
                         
                             comments = CommentsManage.GetCommentByPictureId(p.Id).OrderByDescending(c => c.Time).ToList();
                             if (comments != null && comments.Count() > 5)
