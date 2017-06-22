@@ -57,7 +57,7 @@ namespace RoastMeApplication.Models.DAL
             Comment comment = null;
             using (ApplicationDbContext ctx = new ApplicationDbContext())
             {
-                comment = ctx.Comments.Include("Picture").Include("Votes").Include("Replies").Include("Participant").FirstOrDefault();
+                comment = ctx.Comments.Include("Picture").Include("Votes").Include("Replies").Include("Participant").Where(c=>c.Id == id).FirstOrDefault();
             }
             return comment;
         }
