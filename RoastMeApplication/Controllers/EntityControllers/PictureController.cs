@@ -101,10 +101,21 @@ namespace RoastMeApplication.Controllers.EntityControllers
             Comment comment = CommentsManage.GetCommentById(Convert.ToInt32(jobj["CommentId"]));
             comment.IsFlagged = true;
             CommentsManage.EditCommentFlagged(comment);
-            String res = "Flag Success";
+            String res = "Flag Comment Success";
             return Json(res, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public JsonResult GivePictureFlagged(string JsonFlag)
+        {
+            string result = JsonFlag;
+            JObject jobj = JObject.Parse(result);
+            Picture picture = PictureManager.GetPictureById(Convert.ToInt32(jobj["id"]));
+            picture.IsFlagged = true;
+            PictureManager.EditPictureFlagged(picture);
+            String res = "Flag Picture Success";
+            return Json(res, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpPost]
         public ActionResult SubmitComment(Comment comment)
