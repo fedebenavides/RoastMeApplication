@@ -9,12 +9,12 @@
 }
 
 
-<h3>Flagged Pictures</h3>
+<h3 style="font-family: 'Josefin Sans', sans-serif; font-weight: bold;">Flagged Pictures</h3>
 <hr />
 
 @if (flaggedPics != null && flaggedPics.Count != 0)
 {
-    <table>
+    <table class="table table-bordered">
         <tr>
             <th>Caption</th>
             <th>Image</th>
@@ -30,14 +30,14 @@
                 <th>@p.Caption</th>
                 <th><img class="img-circle" src="~/Content/Images/@p.ImagePath" alt="Caption" height="225" width="225" /></th>
                 <th>@p.Time</th>
-                <th>@Html.ActionLink("go to picture", "PictureDetail", "Picture", routeValues: new {id = @p.Id}, htmlAttributes: null) <th>
+                <th>@Html.ActionLink("go to picture", "PictureDetail", "Picture", routeValues: new {id = @p.Id}, htmlAttributes: null) </th>
                 <th>
                     @using (Html.BeginForm())
                     {
                         @Html.Hidden("Type", "Picture")
                         @Html.Hidden("Action", "unflag")
                         @Html.Hidden("id", p.Id)
-                        <span class="glyphicon glyphicon-ok text-success"><input type="submit" value="unflag" /></span>
+                        <span class="glyphicon glyphicon-ok text-success"><input class="btn btn-success" type="submit" value="unflag" /></span>
                     }
                 </th>
                 <th>
@@ -46,7 +46,7 @@
                         @Html.Hidden("Type", "Picture")
                         @Html.Hidden("Action", "remove")
                         @Html.Hidden("id", p.Id)
-                        <span class="glyphicon glyphicon-remove text-danger"><input type="submit" value="remove" /></span>
+                        <span class="glyphicon glyphicon-remove text-danger"><input class="btn btn-danger" type="submit" value="remove" /></span>
                     }
                 </th>
             </tr>
@@ -61,11 +61,11 @@ else
 }
 
 
-<h3>Flagged Comments</h3>
+<h3 style="font-family: 'Josefin Sans', sans-serif; font-weight: bold;">Flagged Comments</h3>
 <hr />
 @if (flaggedComments != null && flaggedComments.Count != 0)
 {
-    <table>
+    <table class="table table-bordered">
         <tr>
             <th>Message</th>
             <th>Picture</th>
@@ -81,15 +81,14 @@ else
                 <th>@c.Message</th>
                 <th><img class="img-circle" src="~/Content/Images/@c.Picture.ImagePath" alt="Caption" height="225" width="225" /></th>
                 <th>@c.Time</th>
-                <th>@Html.ActionLink("go to picture", "PictureDetail", "Picture", routeValues: new { id = @c.PictureId }, htmlAttributes: null)
-                <th>
+                <th>@Html.ActionLink("go to picture", "PictureDetail", "Picture", routeValues: new { id = @c.PictureId }, htmlAttributes: null)</th>
                 <th>
                     @using (Html.BeginForm())
                     {
                         @Html.Hidden("Type", "Comment")
                         @Html.Hidden("Action", "unflag")
                         @Html.Hidden("id", c.Id)
-                        <span class="glyphicon glyphicon-ok text-success"><input type="submit" value="unflag" /></span>
+                        <span class="glyphicon glyphicon-ok text-success"><input  class="btn btn-success" type="submit" value="unflag" /></span>
                     }
                 </th>
                 <th>
@@ -98,7 +97,7 @@ else
                         @Html.Hidden("Type", "Comment")
                         @Html.Hidden("Action", "remove")
                         @Html.Hidden("id", c.Id)
-                        <span class="glyphicon glyphicon-remove text-danger"><input type="submit" value="remove" /></span>
+                        <span class="glyphicon glyphicon-remove text-danger"><input  class="btn btn-danger" type="submit" value="remove" /></span>
                     }
                 </th>
             </tr>
