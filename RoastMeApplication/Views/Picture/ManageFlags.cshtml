@@ -1,0 +1,37 @@
+﻿@using RoastMeApplication.Models.Entities;
+@using RoastMeApplication.Models.DAL;
+@model Comment
+@{
+    ViewBag.Title = "Flagged Content";
+
+    List<Picture> flaggedPics = ViewBag.FlaggedPics;
+    List<Comment> flaggedComments = ViewBag.FlaggedComments;
+}
+
+<h3>Flagged Pictures</h3>
+<hr />
+<table>
+    <tr>
+        <th>Caption</th>
+        <th>Image</th>
+        <th>Time</th>
+        <th><span class="glyphicon glyphicon-ok text-success"></span> UNFLAG</th>
+        <th><span class="glyphicon glyphicon-remove text-danger"></span> REMOVE</th>
+    </tr>
+
+    @foreach (Picture p in flaggedPics)
+    {
+        <tr>
+            <th>Caption</th>
+            <th>Image</th>
+            <th>Time</th>
+            <th><span class="glyphicon glyphicon-ok text-success"></span> UNFLAG</th>
+            <th><span class="glyphicon glyphicon-remove text-danger"></span> REMOVE</th>
+        </tr>
+    }
+
+</table>
+
+
+<h3>Flagged Comments</h3>
+<hr />

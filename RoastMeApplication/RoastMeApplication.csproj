@@ -299,6 +299,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Picture\SubmitPicture.cshtml" />
     <Content Include="Views\Picture\PictureDetail.cshtml" />
+    <Content Include="Views\Picture\ManageFlags.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

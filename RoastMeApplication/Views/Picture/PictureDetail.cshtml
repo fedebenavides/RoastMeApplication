@@ -24,26 +24,7 @@
         @* put flag underneath image *@   
         <hr />
         @*SEPARATION OF PICTURE ^ AND COMMENTS v *@
-        
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-4">
-                    <a href="?ListSort=Recent">
-                        <span class="glyphicon glyphicon-time" style="color: black; float: left; margin-right: 10px;"></span>
-                    </a>
-                    <a href="?ListSort=Popular">
-                        <span class="glyphicon glyphicon-heart-empty" style="color: black; float: left;"></span>
-                    </a>
-</div>
-                <div class="col-md-8">
-                    <a>
-                        <span class="glyphicon glyphicon-flag" style="color: black; float:right"></span>
-                    </a>
-                </div>
-            </div>
-        </div>
-        
-        <hr />
+
 
         @{
             List<Comment> comments = CommentsManage.GetCommentByPictureId(p.Id).OrderByDescending(c => c.Time).ToList();
@@ -59,40 +40,63 @@
                 <input type="submit" value="Roast"/>
             </div>
             <hr />
-
         }
 
         @if (comments != null && comments.Count != 0)
         {
             foreach (Comment c in comments)
             {
-                int score = 0;
-                foreach (Vote v in c.Votes)
-                {
-                    if (v.IsLike == true)
-                    {
-                        score++;
-                    }else if(v.IsLike == false)
-                    {
-                        score++;
-                    }
-                }
+                String background= "white"; 
                 <div id="commentInfo">
                     <p class="index_username">@c.Participant.Username</p>
-                    <p class="index_caption">@c.Message</p>
+                    @if (c.Message != null)
+                    {
+                        <p class="index_caption">@c.Message</p>
+                    }
+                   
                     <hr />
                 </div>
 
-                <div id="score">
-                    <p>score</p>
-                    @*@using (Html.BeginForm("SubmitComment", "Comment", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                if (c.Votes != null && c.Votes.Count!=0)
+                {
+                    foreach (Vote v in c.Votes)
                     {
-                        <input type="s" value=""/>
+                        if (v.CommentId == c.Id)
+                        {
+                            if (v.IsLike == true)
+                            {
+                                background = "green"; //like
+                            }
+                            else if(v.IsLike == false)
+                            {
+                                background = "blue";//dislike
+                            }
+                            else if (v.IsLike == null)
+                            {
+                                background = "white";//null
+                            }
+                        }
                     }
-                    @using (Html.BeginForm("SubmitComment", "Comment", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                }
+                <div id="score" class="@c.Id">
+                    <p>@c.VoteScore</p>
+                    @if (background == "green")//rgb(0, 128, 0)
                     {
-                        <input type="submit" value="Flag"/>
-                    }*@
+                        <button class="like" style="background-color:@background">like</button>
+                        <button class="dislike"  style="background-color:white">dislike</button>
+                    }
+                    else if (background == "blue")//rgb(0, 0, 255)
+                    {
+                        <button class="like" style="background-color:white">like</button>
+                        <button class="dislike" style="background-color:@background">dislike</button>
+                    }
+                    else if (background == "white")//rgb(255, 255, 255)
+                    {
+                        <button class="like" style="background-color:@background">like</button>
+                        <button class="dislike" style="background-color:@background">dislike</button>
+                    }
+
+                    <button class="flag">flag</button>
                 </div>
             }
         }
@@ -101,5 +105,48 @@
     </div>
 
 </div>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script>
+    $(document).ready(function () {
+        var participant_id = @CurrentParticipant.Id;
 
+        var JsonResult;
+        $('.like').click(function () {
+            var comment_id = this.parentElement.className;
+            var rgb = $(this).css("background-color");
+            if(rgb == 'rgb(255, 255, 255)'){
+                JsonResult = "{'IsLike':1,'ParticipantId': " + participant_id + ",'CommentId':"+comment_id+"}";
+            }else if(rgb == 'rgb(0, 128, 0)'){
+                JsonResult = "{'IsLike':-1,'ParticipantId': " + participant_id + ",'CommentId':" + comment_id + "}";
+            }
+            alert(JsonResult);
+            $.ajax({
+                url: '@Url.Action("LikeVote", "Picture")',
+                type: 'GET',
+                dataType: 'json',
+                cache: false,
+                data: JsonResult,
+                success: function (results) {
+                    alert(results)
+                },
+                error: function () {
+                    alert('Error occured');
+                }
+            });
+        });
+        $('.dislike').click(function () {
+            var comment_id = this.parentElement.className;
+            var rgb = $(this).css("background-color");
+            if(rgb == 'rgb(255, 255, 255)'){
+                JsonResult = "{'isLike':0,'ParticipantId': " + participant_id + ",'CommentId':+" + comment_id + "}";
+            }else if(rgb == 'rgb(0, 128, 0)'){
+                JsonResult = "{'IsLike':-1,'ParticipantId': " + participant_id + ",'CommentId':+" + comment_id + "}";
+            }         
+        });
+        $('.flag').click(function () {
+            JsonResult = "{'IsFlagged':1,'CommentId':+" + comment_id + "}";
+        });
+        
+     });
 
+</script>
