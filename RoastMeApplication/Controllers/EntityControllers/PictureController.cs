@@ -85,8 +85,26 @@ namespace RoastMeApplication.Controllers.EntityControllers
                 VoteManager.EditVotedIslike(vote);
                 VoteManager.SumVotedScore(Convert.ToInt32(jobj["CommentId"]));
             }
-            return Json(JsonResult, JsonRequestBehavior.AllowGet);
+            Comment comment = CommentsManage.GetCommentById(Convert.ToInt32(jobj["CommentId"]));
+            String res = comment.VoteScore+"";
+            String[] str = new String[2];
+            str[0] = res;
+            str[1] = ck+"";
+            return Json(str, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public JsonResult GiveFlagged(string JsonFlag)
+        {
+            string result = JsonFlag;
+            JObject jobj = JObject.Parse(result);
+            Comment comment = CommentsManage.GetCommentById(Convert.ToInt32(jobj["CommentId"]));
+            comment.IsFlagged = true;
+            CommentsManage.EditCommentFlagged(comment);
+            String res = "Flag Success";
+            return Json(res, JsonRequestBehavior.AllowGet);
+        }
+
 
         [HttpPost]
         public ActionResult SubmitComment(Comment comment)

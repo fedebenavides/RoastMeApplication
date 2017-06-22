@@ -131,20 +131,80 @@
 
         var JsonResult;
         $('.like').click(function () {
+            var like = $(this);
+            
             var comment_id = this.parentElement.className;
+            var dislike = $("."+comment_id+" .dislike");
             var rgb = $(this).css("background-color");
             if(rgb == 'rgb(255, 255, 255)'){
                 JsonResult = "{'isLike':1,'ParticipantId': " + participant_id + ",'CommentId':"+comment_id+"}";
             }else if(rgb == 'rgb(0, 128, 0)'){
                 JsonResult = "{'isLike':-1,'ParticipantId': " + participant_id + ",'CommentId':" + comment_id + "}";
             }
-            alert(JsonResult);
+            
             $.ajax({
                 url: '@Url.Action("LikeVote", "Picture")',
                 type: 'GET',
                 dataType: 'json',
                 cache: false,
                 data: {JsonResult},
+                success: function (results) {
+                    $("."+comment_id+" p").html(results[0]);
+                    if(results[1] == "1"){
+                        like.css("background-color","rgb(0, 128, 0)");
+                        dislike.css("background-color","rgb(255, 255, 255)");
+                    }else if(results[1] == "-1"){
+                        like.css("background-color","rgb(255, 255, 255)");
+                        dislike.css("background-color","rgb(255, 255, 255)");
+                    }
+                },
+                error: function () {
+                    alert('Error occured');
+                }
+            });
+        });
+        $('.dislike').click(function () {
+            var dislike = $(this);
+            
+            var comment_id = this.parentElement.className;
+            var like = $("."+comment_id+" .like");
+            var rgb = $(this).css("background-color");
+            if(rgb == 'rgb(255, 255, 255)'){
+                JsonResult = "{'isLike':0,'ParticipantId': " + participant_id + ",'CommentId':" + comment_id + "}";
+            }else if(rgb == 'rgb(0, 0, 255)'){
+                JsonResult = "{'isLike':-1,'ParticipantId': " + participant_id + ",'CommentId':" + comment_id + "}";
+            }
+            $.ajax({
+                url: '@Url.Action("LikeVote", "Picture")',
+                type: 'GET',
+                dataType: 'json',
+                cache: false,
+                data: {JsonResult},
+                success: function (results) {
+                    $("."+comment_id+" p").html(results[0]);
+                    
+                    if(results[1] == "0"){
+                        dislike.css("background-color","rgb(0, 0, 255)");
+                        like.css("background-color","rgb(255, 255, 255)");
+                    }else if(results[1] == "-1"){
+                        dislike.css("background-color","rgb(255, 255, 255)");
+                        like.css("background-color","rgb(255, 255, 255)");
+                    }
+                },
+                error: function () {
+                    alert('Error occured');
+                }
+            });
+        });
+        $('.flag').click(function () {
+            var comment_id = this.parentElement.className;
+            JsonFlag = "{'isFlagged':1,'CommentId':" + comment_id + "}";
+            $.ajax({
+                url: '@Url.Action("GiveFlagged", "Picture")',
+                type: 'GET',
+                dataType: 'json',
+                cache: false,
+                data: {JsonFlag},
                 success: function (results) {
                     alert(results)
                 },
@@ -153,19 +213,7 @@
                 }
             });
         });
-        $('.dislike').click(function () {
-            var comment_id = this.parentElement.className;
-            var rgb = $(this).css("background-color");
-            if(rgb == 'rgb(255, 255, 255)'){
-                JsonResult = "{'isLike':0,'ParticipantId': " + participant_id + ",'CommentId':+" + comment_id + "}";
-            }else if(rgb == 'rgb(0, 128, 0)'){
-                JsonResult = "{'isLike':-1,'ParticipantId': " + participant_id + ",'CommentId':+" + comment_id + "}";
-            }         
-        });
-        $('.flag').click(function () {
-            JsonResult = "{'isFlagged':1,'CommentId':+" + comment_id + "}";
-        });
-        
+
      });
 
 </script>
