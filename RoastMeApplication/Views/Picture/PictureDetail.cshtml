@@ -134,9 +134,9 @@
             var comment_id = this.parentElement.className;
             var rgb = $(this).css("background-color");
             if(rgb == 'rgb(255, 255, 255)'){
-                JsonResult = "{'IsLike':1,'ParticipantId': " + participant_id + ",'CommentId':"+comment_id+"}";
+                JsonResult = "{'isLike':1,'ParticipantId': " + participant_id + ",'CommentId':"+comment_id+"}";
             }else if(rgb == 'rgb(0, 128, 0)'){
-                JsonResult = "{'IsLike':-1,'ParticipantId': " + participant_id + ",'CommentId':" + comment_id + "}";
+                JsonResult = "{'isLike':-1,'ParticipantId': " + participant_id + ",'CommentId':" + comment_id + "}";
             }
             alert(JsonResult);
             $.ajax({
@@ -144,7 +144,7 @@
                 type: 'GET',
                 dataType: 'json',
                 cache: false,
-                data: JsonResult,
+                data: {JsonResult},
                 success: function (results) {
                     alert(results)
                 },
@@ -159,11 +159,11 @@
             if(rgb == 'rgb(255, 255, 255)'){
                 JsonResult = "{'isLike':0,'ParticipantId': " + participant_id + ",'CommentId':+" + comment_id + "}";
             }else if(rgb == 'rgb(0, 128, 0)'){
-                JsonResult = "{'IsLike':-1,'ParticipantId': " + participant_id + ",'CommentId':+" + comment_id + "}";
+                JsonResult = "{'isLike':-1,'ParticipantId': " + participant_id + ",'CommentId':+" + comment_id + "}";
             }         
         });
         $('.flag').click(function () {
-            JsonResult = "{'IsFlagged':1,'CommentId':+" + comment_id + "}";
+            JsonResult = "{'isFlagged':1,'CommentId':+" + comment_id + "}";
         });
         
      });

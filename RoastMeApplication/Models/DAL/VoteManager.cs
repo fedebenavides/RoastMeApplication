@@ -39,6 +39,7 @@ namespace RoastMeApplication.Models.DAL
                 {
                     vote.IsLike = new_vote.IsLike;
                 }
+                ctx.SaveChanges();
             }
         }
 
