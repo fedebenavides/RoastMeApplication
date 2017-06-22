@@ -32,4 +32,12 @@
     $("#imgInp").change(function () {
         readURL(this);
     });
+
+    $('.glyphicon-flag').on("click", function () {
+        $(this).css("color", "red");
+    });
+
+    $('.glyphicon-flag').click(function () {
+        alert("This image has been flagged\nAn administrator will review the content.");
+    });
 });

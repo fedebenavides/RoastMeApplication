@@ -10,7 +10,6 @@
     }
 }
 
-<h1>@p.Id</h1>
 <div class="row">
 
     <div class="picture_index" style="margin-top: 30px;">
@@ -25,7 +24,26 @@
         @* put flag underneath image *@   
         <hr />
         @*SEPARATION OF PICTURE ^ AND COMMENTS v *@
-
+        
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4">
+                    <a href="?ListSort=Recent">
+                        <span class="glyphicon glyphicon-time" style="color: black; float: left; margin-right: 10px;"></span>
+                    </a>
+                    <a href="?ListSort=Popular">
+                        <span class="glyphicon glyphicon-heart-empty" style="color: black; float: left;"></span>
+                    </a>
+</div>
+                <div class="col-md-8">
+                    <a>
+                        <span class="glyphicon glyphicon-flag" style="color: black; float:right"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <hr />
 
         @{
             List<Comment> comments = CommentsManage.GetCommentByPictureId(p.Id).OrderByDescending(c => c.Time).ToList();
@@ -41,6 +59,7 @@
                 <input type="submit" value="Roast"/>
             </div>
             <hr />
+
         }
 
         @if (comments != null && comments.Count != 0)
@@ -66,14 +85,14 @@
 
                 <div id="score">
                     <p>score</p>
-                    @using (Html.BeginForm("SubmitComment", "Comment", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    @*@using (Html.BeginForm("SubmitComment", "Comment", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
                         <input type="s" value=""/>
                     }
                     @using (Html.BeginForm("SubmitComment", "Comment", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
                         <input type="submit" value="Flag"/>
-                    }
+                    }*@
                 </div>
             }
         }
