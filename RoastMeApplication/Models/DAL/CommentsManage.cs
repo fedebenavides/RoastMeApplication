@@ -110,12 +110,13 @@ namespace RoastMeApplication.Models.DAL
         {
             using (ApplicationDbContext ctx = new ApplicationDbContext())
             {
-                Comment comment = ctx.Comments.Where(c => c.Id == new_comment.Id).FirstOrDefault();
+                Comment comment = ctx.Comments.Include("Votes").Where(c => c.Id == new_comment.Id).FirstOrDefault();
 
                 if (comment != null)
                 {
                     //delete
                     ctx.Comments.Remove(comment);
+                    ctx.Votes.RemoveRange(comment.Votes);
                 }
                 //save changes
                 ctx.SaveChanges();
