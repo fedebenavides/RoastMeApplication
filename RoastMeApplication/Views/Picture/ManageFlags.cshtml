@@ -1,37 +1,112 @@
 ﻿@using RoastMeApplication.Models.Entities;
 @using RoastMeApplication.Models.DAL;
-@model Comment
 @{
     ViewBag.Title = "Flagged Content";
 
     List<Picture> flaggedPics = ViewBag.FlaggedPics;
     List<Comment> flaggedComments = ViewBag.FlaggedComments;
+    int i = 0;
 }
+
 
 <h3>Flagged Pictures</h3>
 <hr />
-<table>
-    <tr>
-        <th>Caption</th>
-        <th>Image</th>
-        <th>Time</th>
-        <th><span class="glyphicon glyphicon-ok text-success"></span> UNFLAG</th>
-        <th><span class="glyphicon glyphicon-remove text-danger"></span> REMOVE</th>
-    </tr>
 
-    @foreach (Picture p in flaggedPics)
-    {
+@if (flaggedPics != null && flaggedPics.Count != 0)
+{
+    <table>
         <tr>
             <th>Caption</th>
             <th>Image</th>
             <th>Time</th>
-            <th><span class="glyphicon glyphicon-ok text-success"></span> UNFLAG</th>
-            <th><span class="glyphicon glyphicon-remove text-danger"></span> REMOVE</th>
+            <th>Go to Picture</th>
+            <th>UNFLAG</th>
+            <th>REMOVE</th>
         </tr>
-    }
 
-</table>
+        @foreach (Picture p in flaggedPics)
+        {
+            <tr>
+                <th>@p.Caption</th>
+                <th><img class="img-circle" src="~/Content/Images/@p.ImagePath" alt="Caption" height="225" width="225" /></th>
+                <th>@p.Time</th>
+                <th>@Html.ActionLink("go to picture", "PictureDetail", "Picture", routeValues: new {id = @p.Id}, htmlAttributes: null) <th>
+                <th>
+                    @using (Html.BeginForm())
+                    {
+                        @Html.Hidden("Type", "Picture")
+                        @Html.Hidden("Action", "unflag")
+                        @Html.Hidden("id", p.Id)
+                        <span class="glyphicon glyphicon-ok text-success"><input type="submit" value="unflag" /></span>
+                    }
+                </th>
+                <th>
+                    @using (Html.BeginForm())
+                    {
+                        @Html.Hidden("Type", "Picture")
+                        @Html.Hidden("Action", "remove")
+                        @Html.Hidden("id", p.Id)
+                        <span class="glyphicon glyphicon-remove text-danger"><input type="submit" value="remove" /></span>
+                    }
+                </th>
+            </tr>
+        }
+
+    </table>
+
+}
+else
+{
+    <h4 class="text-success"> There are no flagged pictures. </h4>
+}
 
 
 <h3>Flagged Comments</h3>
 <hr />
+@if (flaggedComments != null && flaggedComments.Count != 0)
+{
+    <table>
+        <tr>
+            <th>Message</th>
+            <th>Picture</th>
+            <th>Time</th>
+            <th>Go to Picture</th>
+            <th>UNFLAG</th>
+            <th>REMOVE</th>
+        </tr>
+    
+        @foreach (Comment c in flaggedComments)
+        {
+            <tr>
+                <th>@c.Message</th>
+                <th><img class="img-circle" src="~/Content/Images/@c.Picture.ImagePath" alt="Caption" height="225" width="225" /></th>
+                <th>@c.Time</th>
+                <th>@Html.ActionLink("go to picture", "PictureDetail", "Picture", routeValues: new { id = @c.PictureId }, htmlAttributes: null)
+                <th>
+                <th>
+                    @using (Html.BeginForm())
+                    {
+                        @Html.Hidden("Type", "Comment")
+                        @Html.Hidden("Action", "unflag")
+                        @Html.Hidden("id", c.Id)
+                        <span class="glyphicon glyphicon-ok text-success"><input type="submit" value="unflag" /></span>
+                    }
+                </th>
+                <th>
+                    @using (Html.BeginForm())
+                    {
+                        @Html.Hidden("Type", "Comment")
+                        @Html.Hidden("Action", "remove")
+                        @Html.Hidden("id", c.Id)
+                        <span class="glyphicon glyphicon-remove text-danger"><input type="submit" value="remove" /></span>
+                    }
+                </th>
+            </tr>
+        }
+
+    </table>
+}
+else
+{
+    <h4 class="text-success"> There are no flagged comments. </h4>
+}

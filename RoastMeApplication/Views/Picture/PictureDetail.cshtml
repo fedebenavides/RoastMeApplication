@@ -25,6 +25,25 @@
         <hr />
         @*SEPARATION OF PICTURE ^ AND COMMENTS v *@
 
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4">
+                    <a href="?ListSort=Recent">
+                        <span class="glyphicon glyphicon-time" style="color: black; float: left; margin-right: 10px;"></span>
+                    </a>
+                    <a href="?ListSort=Popular">
+                        <span class="glyphicon glyphicon-heart-empty" style="color: black; float: left;"></span>
+                    </a>
+                </div>
+                <div class="col-md-8">
+                    <a>
+                        <span class="glyphicon glyphicon-flag" style="color: black; float:right"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <hr />
 
         @{
             List<Comment> comments = CommentsManage.GetCommentByPictureId(p.Id).OrderByDescending(c => c.Time).ToList();

@@ -112,5 +112,22 @@ namespace RoastMeApplication.Models.DAL
             List<Picture> flaggedPics = allPics.Where(p => p.IsFlagged == true).ToList();
             return flaggedPics;
         }
+
+        public static void DeletePicture(Picture new_picture)
+        {
+            using (ApplicationDbContext ctx = new ApplicationDbContext())
+            {
+                Picture picture = ctx.Pictures.Include("Comments").Where(p => p.Id == new_picture.Id).FirstOrDefault();
+
+                if (picture != null)
+                {
+                    //delete
+                    ctx.Pictures.Remove(picture);
+                    ctx.Comments.RemoveRange(picture.Comments);
+                }
+                //save changes
+                ctx.SaveChanges();
+            }
+        }
     }
 }

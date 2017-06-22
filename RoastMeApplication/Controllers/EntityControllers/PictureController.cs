@@ -16,9 +16,22 @@ namespace RoastMeApplication.Controllers.EntityControllers
         public ActionResult PictureDetail(int id)
         {
             ViewBag.picture = PictureManager.GetPictureById(id);
+            
+            
             if (Session["participantID"] != null)
             {
                 ViewBag.Participant = ParticipantManager.GetById(Convert.ToInt32(Session["participantID"]));
+            }            
+
+            string listSort = Request.QueryString["ListSort"];//check if user prompted a type of sorting
+           
+            if (listSort == null || listSort == "Recent")
+            {
+                ViewBag.Recentcomment = CommentsManage.SortByRecent(CommentsManage.GetCommentByPictureId(id));
+            }
+            else
+            {
+                ViewBag.Popularcomments = CommentsManage.SortByPopular(CommentsManage.GetCommentByPictureId(id));//popular sorting, most votes
             }
 
             return View();
@@ -167,6 +180,40 @@ namespace RoastMeApplication.Controllers.EntityControllers
             ViewBag.FlaggedPics = PictureManager.GetFlagged();
             ViewBag.FlaggedComments = CommentsManage.GetFlagged();
             return View();
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public ActionResult ManageFlags(string Type, string Action, int id)
+        {
+                if(Type == "Picture")
+            {
+                Picture pic = PictureManager.GetPictureById(id);
+                if(Action == "unflag")
+                {
+                    pic.IsFlagged = false;
+                    PictureManager.EditPictureFlagged(pic);
+                }
+                else
+                {
+                    PictureManager.DeletePicture(pic);
+                }
+            }
+            else
+            {
+                Comment comment = CommentsManage.GetCommentById(id);
+                if (Action == "unflag")
+                {
+                    comment.IsFlagged = false;
+                    CommentsManage.EditCommentFlagged(comment);
+                }
+                else
+                {
+                    CommentsManage.DeleteComment(comment);
+                }
+            }
+
+            return RedirectToAction("ManageFlags");
         }
     }
 }
