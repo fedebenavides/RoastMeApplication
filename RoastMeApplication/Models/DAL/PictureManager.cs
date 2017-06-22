@@ -117,12 +117,13 @@ namespace RoastMeApplication.Models.DAL
         {
             using (ApplicationDbContext ctx = new ApplicationDbContext())
             {
-                Picture picture = ctx.Pictures.Where(p => p.Id == new_picture.Id).FirstOrDefault();
+                Picture picture = ctx.Pictures.Include("Comments").Where(p => p.Id == new_picture.Id).FirstOrDefault();
 
                 if (picture != null)
                 {
                     //delete
                     ctx.Pictures.Remove(picture);
+                    ctx.Comments.RemoveRange(picture.Comments);
                 }
                 //save changes
                 ctx.SaveChanges();

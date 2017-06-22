@@ -181,10 +181,8 @@ namespace RoastMeApplication.Controllers.EntityControllers
                     CommentsManage.DeleteComment(comment);
                 }
             }
-            ViewBag.FlaggedPics = PictureManager.GetFlagged();
-            ViewBag.FlaggedComments = CommentsManage.GetFlagged();
 
-            return View();
+            return RedirectToAction("ManageFlags");
         }
     }
 }
