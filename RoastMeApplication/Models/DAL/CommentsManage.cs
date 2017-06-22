@@ -8,6 +8,18 @@ namespace RoastMeApplication.Models.DAL
 {
     public class CommentsManage
     {
+        public static List<Comment> GetAll()
+        {
+            List<Comment> allComments = null;
+
+            using (ApplicationDbContext ctx = new ApplicationDbContext())
+            {
+                allComments = ctx.Comments.Include("Picture").Include("Participant").Include("Votes").Include("Replies").ToList();
+            }
+
+            return allComments;
+        }
+
         //Get Comment By Picture Id
         public static List<Comment> GetCommentByPictureId(int picture_id)
         {
@@ -111,6 +123,13 @@ namespace RoastMeApplication.Models.DAL
                 ctx.SaveChanges();
             }
 
+        }
+
+        public static List<Comment> GetFlagged()
+        {
+            List<Comment> allComments = GetAll();
+            List<Comment> flaggedComments = allComments.Where(c => c.IsFlagged == true).ToList();
+            return flaggedComments;
         }
     }
 }

@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace RoastMeApplication.Controllers.EntityControllers
 {
+    [Authorize]
     public class PictureController : Controller
     {
         // GET: Picture
@@ -19,7 +20,7 @@ namespace RoastMeApplication.Controllers.EntityControllers
             {
                 ViewBag.Participant = ParticipantManager.GetById(Convert.ToInt32(Session["participantID"]));
             }
-            
+
             return View();
         }
         [HttpGet]
@@ -74,7 +75,7 @@ namespace RoastMeApplication.Controllers.EntityControllers
         [HttpPost]
         public ActionResult SubmitComment(Comment comment)
         {
-            comment.IsFlagged = false;            
+            comment.IsFlagged = false;
             DateTime t = DateTime.Now;
             comment.IsFlagged = false;
             comment.Time = t;
@@ -95,13 +96,14 @@ namespace RoastMeApplication.Controllers.EntityControllers
 
         public ActionResult SubmitPicture()
         {
-            if (Session["participantID"] != null) {
+            if (Session["participantID"] != null)
+            {
                 ViewBag.ParticipantID = Session["participantID"];
             }
-                       
+
             return View();
         }
-        
+
         [HttpPost]
         public ActionResult SubmitPicture(Picture img, HttpPostedFileBase file)
         {
@@ -117,24 +119,33 @@ namespace RoastMeApplication.Controllers.EntityControllers
             {
                 if (file != null)
                 {
-                   
-                   file.SaveAs(Server.MapPath("~/Content/Images/" + file.FileName));
 
-                   img.ImagePath = file.FileName;
-                   img.Time = DateTime.Now;
-                   img.ParticipantId = img.ParticipantId;
-                   img.IsFlagged = false;       
-                   img.Caption = img.Caption;
-                   PictureManager.AddPicture(img);
+                    file.SaveAs(Server.MapPath("~/Content/Images/" + file.FileName));
+
+                    img.ImagePath = file.FileName;
+                    img.Time = DateTime.Now;
+                    img.ParticipantId = img.ParticipantId;
+                    img.IsFlagged = false;
+                    img.Caption = img.Caption;
+                    PictureManager.AddPicture(img);
                 }
                 //img is true
                 return Content("Success");
-            }else
+            }
+            else
             {
                 // If img is error 
                 return Content("Error");
             }
-            
+
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult ManageFlags()
+        {
+            ViewBag.FlaggedPics = PictureManager.GetFlagged();
+            ViewBag.FlaggedComments = CommentsManage.GetFlagged();
+            return View();
         }
     }
 }
