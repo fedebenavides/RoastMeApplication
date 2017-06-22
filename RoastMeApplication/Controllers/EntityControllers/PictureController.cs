@@ -16,9 +16,22 @@ namespace RoastMeApplication.Controllers.EntityControllers
         public ActionResult PictureDetail(int id)
         {
             ViewBag.picture = PictureManager.GetPictureById(id);
+            
+            
             if (Session["participantID"] != null)
             {
                 ViewBag.Participant = ParticipantManager.GetById(Convert.ToInt32(Session["participantID"]));
+            }            
+
+            string listSort = Request.QueryString["ListSort"];//check if user prompted a type of sorting
+           
+            if (listSort == null || listSort == "Recent")
+            {
+                ViewBag.Recentcomment = CommentsManage.SortByRecent(CommentsManage.GetCommentByPictureId(id));
+            }
+            else
+            {
+                ViewBag.Popularcomments = CommentsManage.SortByPopular(CommentsManage.GetCommentByPictureId(id));//popular sorting, most votes
             }
 
             return View();
