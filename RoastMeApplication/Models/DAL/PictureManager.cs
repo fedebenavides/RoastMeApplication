@@ -105,5 +105,12 @@ namespace RoastMeApplication.Models.DAL
             List<Picture> sortedPics = allPics.OrderByDescending(p => p.Comments.ToList().Count).ToList();
             return sortedPics;
         }
+
+        public static List<Picture> GetFlagged()
+        {
+            List<Picture> allPics = GetAll();
+            List<Picture> flaggedPics = allPics.Where(p => p.IsFlagged == true).ToList();
+            return flaggedPics;
+        }
     }
 }

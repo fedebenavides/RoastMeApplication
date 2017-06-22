@@ -30,6 +30,28 @@ namespace RoastMeApplication.Controllers
             SignInManager = signInManager;
         }
 
+        [Authorize(Users = "admin@roastme.net")]
+        public ActionResult AssignAdminRole()
+        {
+            if (this.Request.IsLocal)
+            {
+                ApplicationUser adminUser = this.UserManager.Users.Where(u => u.UserName == "admin@roastme.net").FirstOrDefault();
+                if (adminUser != null)
+                {
+                    if (!this.UserManager.IsInRole(userId: adminUser.Id, role: "Admin"))
+                    {
+                        this.UserManager.AddToRole(userId: adminUser.Id, role: "Admin");
+                    }
+                }
+                return Content("AssignAdminRole success");
+            }
+            else
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
+            }
+        }
+
+
         public ApplicationSignInManager SignInManager
         {
             get
