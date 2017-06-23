@@ -39,7 +39,7 @@ namespace RoastMeApplication.Controllers
                 }
                 else //if more than 10 pictures in total
                 {
-                    ViewBag.Pictures = picsList.GetRange(0, 10); //show firs ten
+                    ViewBag.Pictures = picsList.GetRange(0, 10); //show first ten
                 }
             }
             else //if a page has been selected by the user
@@ -48,11 +48,17 @@ namespace RoastMeApplication.Controllers
 
                 if (picsList.Count <= pageNum*10) //if current page has 10 pictures or less in total (last page)
                 {
-                    ViewBag.Pictures = picsList.GetRange((pageNum-1)*10, picsList.Count-1); //show remaining
+                    int i = picsList.Count;
+                    if(((pageNum - 1) * 10) == (picsList.Count - 1)){
+                        ViewBag.Pictures = new List<Picture>() { picsList[(pageNum - 1) * 10] };//if only one picture in page
+                    }else
+                    {
+                        ViewBag.Pictures = picsList.GetRange((pageNum - 1) * 10, picsList.Count - 10 * (pageNum - 1)); //show remaining
+                    }
                 }
                 else //if page has 10 pictures
                 {
-                    ViewBag.Pictures = picsList.GetRange((pageNum - 1) * 10, (pageNum - 1) * 10 + 10);//if page selected is "1" it will show range from 0 to 10
+                    ViewBag.Pictures = picsList.GetRange((pageNum - 1) * 10, 10);//if page selected is "1" it will show range from 0 to 10
                 }
                 
             }

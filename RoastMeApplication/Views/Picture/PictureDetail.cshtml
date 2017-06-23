@@ -89,11 +89,11 @@
                             {
                                 if (v.IsLike == true)
                                 {
-                                    background = "green"; //like
+                                    background = "rgb(136, 232, 136)"; //like
                                 }
                                 else if (v.IsLike == false)
                                 {
-                                    background = "blue";//dislike
+                                    background = "rgb(255, 71, 71)";//dislike
                                 }
                                 else if (v.IsLike == null)
                                 {
@@ -104,12 +104,12 @@
                     }
                     <div id="score" class="@c.Id">
                         <p style="font-weight: bold; color: #E47E1C">@c.VoteScore</p>
-                        @if (background == "green")//rgb(0, 128, 0)
+                        @if (background == "rgb(136, 232, 136)")//rgb(0, 128, 0) //new green rgb(136, 232, 136)
                         {
                             <button class="like" style="background-color:@background"><span class="glyphicon glyphicon-arrow-up"></span></button>
                             <button class="dislike" style="background-color:white"><span class="glyphicon glyphicon-arrow-down"></span></button>
                         }
-                        else if (background == "blue")//rgb(0, 0, 255)
+                        else if (background == "rgb(255, 71, 71)")//rgb(0, 0, 255)
                         {
                             <button class="like" style="background-color:white"><span class="glyphicon glyphicon-arrow-up"></span></button>
                             <button class="dislike" style="background-color:@background"><span class="glyphicon glyphicon-arrow-down"></span></button>
@@ -144,7 +144,7 @@
             var rgb = $(this).css("background-color");
             if(rgb == 'rgb(255, 255, 255)'){
                 JsonResult = "{'isLike':1,'ParticipantId': " + participant_id + ",'CommentId':"+comment_id+"}";
-            }else if(rgb == 'rgb(0, 128, 0)'){
+            }else if(rgb == 'rgb(136, 232, 136)'){
                 JsonResult = "{'isLike':-1,'ParticipantId': " + participant_id + ",'CommentId':" + comment_id + "}";
             }
             
@@ -177,7 +177,7 @@
             var rgb = $(this).css("background-color");
             if(rgb == 'rgb(255, 255, 255)'){
                 JsonResult = "{'isLike':0,'ParticipantId': " + participant_id + ",'CommentId':" + comment_id + "}";
-            }else if(rgb == 'rgb(0, 0, 255)'){
+            }else if(rgb == 'rgb(255, 71, 71)'){
                 JsonResult = "{'isLike':-1,'ParticipantId': " + participant_id + ",'CommentId':" + comment_id + "}";
             }
             $.ajax({
@@ -212,7 +212,6 @@
                 cache: false,
                 data: {JsonFlag},
                 success: function (results) {
-                    alert(results)
                 },
                 error: function () {
                     alert('Error occured');
@@ -222,7 +221,7 @@
 
         $('.flag-picture').click(function(){
             var picture_id = @p.Id;
-            alert(picture_id);
+            
             JsonFlag = "{'isFlagged':1,'id':" + picture_id + "}";
             $.ajax({
                 url: '@Url.Action("GivePictureFlagged", "Picture")',
@@ -231,7 +230,6 @@
                 cache: false,
                 data: {JsonFlag},
                 success: function (results) {
-                    alert(results)
                 },
                 error: function () {
                     alert('Error occured');

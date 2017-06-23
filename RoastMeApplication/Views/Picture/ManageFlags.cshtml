@@ -28,7 +28,7 @@
         {
             <tr>
                 <th>@p.Caption</th>
-                <th><img class="img-circle" src="~/Content/Images/@p.ImagePath" alt="Caption" height="225" width="225" /></th>
+                <th><img class="img-circle indexImg" src="~/Content/Images/@p.ImagePath" alt="Caption" height="225" width="225" /></th>
                 <th>@p.Time</th>
                 <th>@Html.ActionLink("go to picture", "PictureDetail", "Picture", routeValues: new {id = @p.Id}, htmlAttributes: null) </th>
                 <th>
@@ -79,7 +79,7 @@ else
         {
             <tr>
                 <th>@c.Message</th>
-                <th><img class="img-circle" src="~/Content/Images/@c.Picture.ImagePath" alt="Caption" height="225" width="225" /></th>
+                <th><img class="img-circle indexImg" src="~/Content/Images/@c.Picture.ImagePath" alt="Caption" height="225" width="225" /></th>
                 <th>@c.Time</th>
                 <th>@Html.ActionLink("go to picture", "PictureDetail", "Picture", routeValues: new { id = @c.PictureId }, htmlAttributes: null)</th>
                 <th>

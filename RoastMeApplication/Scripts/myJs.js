@@ -38,6 +38,6 @@
     });
 
     $('.glyphicon-flag').click(function () {
-        alert("This image has been flagged\nAn administrator will review the content.");
+        alert("This content has been flagged\nAn administrator will review the content.");
     });
 });
